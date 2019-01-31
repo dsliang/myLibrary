@@ -23,6 +23,7 @@
         <property name="password" value="${jdbc.password}"/>
     </bean>
 
+
     <bean id="entityManagerFactory"
           class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
         <property name="dataSource" ref="dataSource"/>
@@ -31,8 +32,7 @@
         </property>
         <property name="packagesToScan" value="cn.dsliang.library.entity"/>
         <property name="jpaProperties">
-            <props>
-                <prop key="hibernate.ejb.naming_strategy">org.hibernate.cfg.ImprovedNamingStrategy</prop>
+            <props><prop key="hibernate.ejb.naming_strategy">org.hibernate.cfg.ImprovedNamingStrategy</prop>
                 <prop key="hibernate.show_sql">true</prop>
                 <prop key="hibernate.format_sql">true</prop>
                 <prop key="hibernate.hbm2ddl.auto">update</prop>
@@ -40,13 +40,16 @@
         </property>
     </bean>
 
+    <!--事务管理器-->
     <bean id="transactionManager"
           class="org.springframework.orm.jpa.JpaTransactionManager">
         <property name="entityManagerFactory" ref="entityManagerFactory"/>
     </bean>
 
+    <!--启动事务注解驱动-->
     <tx:annotation-driven transaction-manager="transactionManager"/>
 
+    <!--扫描repository-->
     <jpa:repositories base-package="cn.dsliang.library.repository"
                       entity-manager-factory-ref="entityManagerFactory"/>
 </beans>

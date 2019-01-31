@@ -1,5 +1,11 @@
 package cn.dsliang.library.entity;
 
+import com.sun.istack.internal.NotNull;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedBy;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -8,13 +14,30 @@ import java.util.Date;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "user_id")
     Integer userId;
+
+    @Column(name = "user_account", updatable = false)
     String userAccount;
+
+    @Column(name = "user_name")
     String userName;
+
+    @Column(name = "password")
     String password;
+
+    @Column(name = "email")
     String email;
+
+    @Column(name = "status", columnDefinition = "tinyint(1)")
     Integer status;
+
+    @Column(name = "create_time", insertable = false, updatable = false,
+            columnDefinition = "datetime NULL DEFAULT CURRENT_TIMESTAMP")
     Date createTime;
+
+    @Column(name = "update_time", insertable = false, updatable = false,
+            columnDefinition = "datetime NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
     Date updateTime;
 
     public Integer getUserId() {

@@ -60,6 +60,7 @@
     </dependencies>
 
     <build>
+        <finalName>myLibrary</finalName>
         <plugins>
             <!-- java编译插件 -->
             <plugin>

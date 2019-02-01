@@ -14,19 +14,19 @@ public class ApiResponse<T> {
     }
 
     static public <T> ApiResponse<T> success(T data) {
-        return new ApiResponse(0, "success", data);
+        return new ApiResponse<T>(0, "success", data);
     }
 
-    static public ApiResponse success() {
-        return new ApiResponse(0, "success", null);
+    static public <T> ApiResponse<T> success() {
+        return new ApiResponse<T>(0, "success", null);
     }
 
-    public static ApiResponse<User> error(Integer code, String msg) {
-        return new ApiResponse(code, msg, null);
+    public static <T> ApiResponse<T> error(Integer code, String msg) {
+        return new ApiResponse<T>(code, msg, null);
     }
 
-    public static ApiResponse<User> error(String msg) {
-        return new ApiResponse(1, msg, null);
+    public static <T> ApiResponse<T> error(String msg) {
+        return new ApiResponse<T>(1, msg, null);
     }
 
     public Integer getCode() {

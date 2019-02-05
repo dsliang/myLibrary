@@ -15,6 +15,10 @@ public class Collection {
     @JoinColumn(name = "biblio_id")
     private Biblio biblio;
 
+    @ManyToOne
+    @JoinColumn(name = "location_id")
+    private Location location;
+
     @Column(name = "barcode")
     private String barcode;
 
@@ -24,9 +28,8 @@ public class Collection {
     @Column(name = "serial_number")
     private Integer serialNumber;
 
-    @ManyToOne
-    @JoinColumn(name = "location_id")
-    private Location location;
+    @Column(name = "status", columnDefinition = "tinyint(1)")
+    private Integer status;
 
     @Column(name = "create_time", insertable = false, updatable = false,
             columnDefinition = "datetime NULL DEFAULT CURRENT_TIMESTAMP")
@@ -50,6 +53,14 @@ public class Collection {
 
     public void setBiblio(Biblio biblio) {
         this.biblio = biblio;
+    }
+
+    public Location getLocation() {
+        return location;
+    }
+
+    public void setLocation(Location location) {
+        this.location = location;
     }
 
     public String getBarcode() {
@@ -76,12 +87,12 @@ public class Collection {
         this.serialNumber = serialNumber;
     }
 
-    public Location getLocation() {
-        return location;
+    public Integer getStatus() {
+        return status;
     }
 
-    public void setLocation(Location location) {
-        this.location = location;
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 
     public Date getCreateTime() {

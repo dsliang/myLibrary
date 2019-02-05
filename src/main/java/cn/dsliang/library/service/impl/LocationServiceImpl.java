@@ -32,7 +32,7 @@ public class LocationServiceImpl implements LocationService {
     }
 
     @Override
-    public void deleteBydId(Integer id) {
+    public void deleteById(Integer id) {
         locationRepository.delete(id);
     }
 }

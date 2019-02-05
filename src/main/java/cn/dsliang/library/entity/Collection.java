@@ -1,15 +1,39 @@
 package cn.dsliang.library.entity;
 
+import javax.persistence.*;
 import java.util.Date;
 
+@Entity
+@Table(name = "t_collection")
 public class Collection {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "collection_id")
     private Integer collectionId;
-    private Integer biblioId;
+
+    @ManyToOne
+    @JoinColumn(name = "biblio_id")
+    private Biblio biblio;
+
+    @Column(name = "barcode")
     private String barcode;
+
+    @Column(name = "category_number")
     private String categoryNumber;
+
+    @Column(name = "serial_number")
     private Integer serialNumber;
-    private Integer locationId;
+
+    @ManyToOne
+    @JoinColumn(name = "location_id")
+    private Location location;
+
+    @Column(name = "create_time", insertable = false, updatable = false,
+            columnDefinition = "datetime NULL DEFAULT CURRENT_TIMESTAMP")
     private Date createTime;
+
+    @Column(name = "update_time", insertable = false, updatable = false,
+            columnDefinition = "datetime NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
     private Date updateTime;
 
     public Integer getCollectionId() {
@@ -20,12 +44,12 @@ public class Collection {
         this.collectionId = collectionId;
     }
 
-    public Integer getBiblioId() {
-        return biblioId;
+    public Biblio getBiblio() {
+        return biblio;
     }
 
-    public void setBiblioId(Integer biblioId) {
-        this.biblioId = biblioId;
+    public void setBiblio(Biblio biblio) {
+        this.biblio = biblio;
     }
 
     public String getBarcode() {
@@ -52,12 +76,12 @@ public class Collection {
         this.serialNumber = serialNumber;
     }
 
-    public Integer getLocationId() {
-        return locationId;
+    public Location getLocation() {
+        return location;
     }
 
-    public void setLocationId(Integer locationId) {
-        this.locationId = locationId;
+    public void setLocation(Location location) {
+        this.location = location;
     }
 
     public Date getCreateTime() {

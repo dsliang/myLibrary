@@ -55,7 +55,7 @@ public class LocationController {
     @GetMapping("/delete")
     @ResponseBody
     ApiResponse delete(@RequestParam(name = "locationId", required = true) Integer id) {
-        locationService.deleteBydId(id);
+        locationService.deleteById(id);
         return ApiResponse.success();
     }
 }

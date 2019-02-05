@@ -11,5 +11,5 @@ public interface LocationService {
 
     Page<Location> list(Integer page, Integer size);
 
-    void deleteBydId(Integer id);
+    void deleteById(Integer id);
 }

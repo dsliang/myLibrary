@@ -11,5 +11,5 @@ public interface UserService {
 
     Page<User> list(Integer page, Integer size);
 
-    void deleteBydId(Integer id);
+    void deleteById(Integer id);
 }

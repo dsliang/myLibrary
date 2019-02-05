@@ -56,7 +56,7 @@ public class UserController {
     @GetMapping("/delete")
     @ResponseBody
     ApiResponse delete(@RequestParam(name = "userId", required = true) Integer id) {
-        userService.deleteBydId(id);
+        userService.deleteById(id);
         return ApiResponse.success();
     }
 }

@@ -63,6 +63,8 @@ public class CollectionController {
         return ApiResponse.success(new EasyuiPageResult<>(collectionPage.getTotalElements(), collectionPage.getContent()));
     }
 
+    @GetMapping("/delete")
+    @ResponseBody
     ApiResponse delete(@RequestParam(name = "collectionId", required = true) Integer id) {
         collectionService.deleteById(id);
         return ApiResponse.success();

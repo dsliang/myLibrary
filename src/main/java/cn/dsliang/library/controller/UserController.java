@@ -32,8 +32,8 @@ public class UserController {
     @ResponseBody
     ApiResponse save(@RequestBody User user) {
         User rawUser = new User();
-        if (user.getUserId() != null) {
-            rawUser = userService.findById(user.getUserId());
+        if (user.getId() != null) {
+            rawUser = userService.findById(user.getId());
             if (rawUser == null)
                 return ApiResponse.error("用户不存在");
         }

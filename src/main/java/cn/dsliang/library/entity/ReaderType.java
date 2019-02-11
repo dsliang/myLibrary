@@ -9,10 +9,10 @@ public class ReaderType {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "reader_type_id")
-    private Integer readerTypeId;
+    private Integer id;
 
     @Column(name = "reader_type_name")
-    private String readerTypeName;
+    private String name;
 
     @ManyToOne
     @JoinColumn(name = "rule_id")
@@ -32,21 +32,20 @@ public class ReaderType {
             columnDefinition = "datetime NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
     private Date updateTime;
 
-
-    public Integer getReaderTypeId() {
-        return readerTypeId;
+    public Integer getId() {
+        return id;
     }
 
-    public void setReaderTypeId(Integer readerTypeId) {
-        this.readerTypeId = readerTypeId;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    public String getReaderTypeName() {
-        return readerTypeName;
+    public String getName() {
+        return name;
     }
 
-    public void setReaderTypeName(String readerTypeName) {
-        this.readerTypeName = readerTypeName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Rule getRule() {

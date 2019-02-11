@@ -15,13 +15,13 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
-    Integer userId;
+    Integer id;
 
     @Column(name = "user_account", updatable = false)
-    String userAccount;
+    String account;
 
     @Column(name = "user_name")
-    String userName;
+    String name;
 
     @Column(name = "password")
     String password;
@@ -40,28 +40,28 @@ public class User {
             columnDefinition = "datetime NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
     Date updateTime;
 
-    public Integer getUserId() {
-        return userId;
+    public Integer getId() {
+        return id;
     }
 
-    public void setUserId(Integer userId) {
-        this.userId = userId;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    public String getUserAccount() {
-        return userAccount;
+    public String getAccount() {
+        return account;
     }
 
-    public void setUserAccount(String userAccount) {
-        this.userAccount = userAccount;
+    public void setAccount(String account) {
+        this.account = account;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getName() {
+        return name;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getPassword() {

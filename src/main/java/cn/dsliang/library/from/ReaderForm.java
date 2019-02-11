@@ -1,5 +1,6 @@
 package cn.dsliang.library.from;
 
+import cn.dsliang.library.entity.Reader;
 import cn.dsliang.library.entity.ReaderType;
 
 import javax.persistence.*;
@@ -64,5 +65,16 @@ public class ReaderForm {
 
     public void setStatus(Integer status) {
         this.status = status;
+    }
+
+    public Reader convert() {
+        Reader reader = new Reader();
+        reader.setId(readerId);
+        reader.setCard(readerCard);
+        reader.setName(readerName);
+        reader.setGender(gender);
+        reader.setStatus(status);
+
+        return reader;
     }
 }

@@ -12,7 +12,7 @@ public class Biblio {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "biblio_id")
-    private Integer biblioId;
+    private Integer id;
 
     @Column(name = "isbn")
     private String isbn;
@@ -49,13 +49,12 @@ public class Biblio {
             columnDefinition = "datetime NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
     private Date updateTime;
 
-
-    public Integer getBiblioId() {
-        return biblioId;
+    public Integer getId() {
+        return id;
     }
 
-    public void setBiblioId(Integer biblioId) {
-        this.biblioId = biblioId;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getIsbn() {

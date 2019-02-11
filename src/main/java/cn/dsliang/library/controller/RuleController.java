@@ -32,8 +32,8 @@ public class RuleController {
     @ResponseBody
     ApiResponse save(@RequestBody Rule rule) {
         Rule rawRule = new Rule();
-        if (rule.getRuleId() != null) {
-            rawRule = ruleService.findById(rule.getRuleId());
+        if (rule.getId() != null) {
+            rawRule = ruleService.findById(rule.getId());
             if (rawRule == null)
                 return ApiResponse.error("借阅规则不存在");
         }

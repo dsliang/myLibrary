@@ -34,8 +34,8 @@ public class LocationController {
     ApiResponse save(@RequestBody Location location) {
 
         Location rawLocation = new Location();
-        if (location.getLocationId() != null) {
-            rawLocation = locationService.findById(location.getLocationId());
+        if (location.getId() != null) {
+            rawLocation = locationService.findById(location.getId());
         }
 
         BeanUtils.copyProperties(location, rawLocation);

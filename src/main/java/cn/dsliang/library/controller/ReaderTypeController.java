@@ -40,8 +40,7 @@ public class ReaderTypeController {
         if (rule == null)
             return ApiResponse.error("借阅规则不存在");
 
-        ReaderType rawReaderType = new ReaderType();
-        BeanUtils.copyProperties(readerTypeForm, rawReaderType);
+        ReaderType rawReaderType = readerTypeForm.convert();
         rawReaderType.setRule(rule);
         readerTypeService.save(rawReaderType);
 

@@ -11,10 +11,10 @@ public class Rule {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "rule_id")
-    private Integer ruleId;
+    private Integer id;
 
     @Column(name = "rule_name")
-    private String ruleName;
+    private String name;
 
     @Column(name = "borrow_number")
     private Integer borrowNumber;
@@ -39,20 +39,20 @@ public class Rule {
             columnDefinition = "datetime NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
     private Date updateTime;
 
-    public Integer getRuleId() {
-        return ruleId;
+    public Integer getId() {
+        return id;
     }
 
-    public void setRuleId(Integer ruleId) {
-        this.ruleId = ruleId;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    public String getRuleName() {
-        return ruleName;
+    public String getName() {
+        return name;
     }
 
-    public void setRuleName(String ruleName) {
-        this.ruleName = ruleName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Integer getBorrowNumber() {

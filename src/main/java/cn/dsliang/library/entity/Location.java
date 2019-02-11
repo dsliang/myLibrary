@@ -11,10 +11,10 @@ public class Location {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "location_id")
-    private Integer locationId;
+    private Integer id;
 
     @Column(name = "location_name")
-    private String locationName;
+    private String name;
 
     @Column(name = "comment")
     private String comment;
@@ -27,20 +27,20 @@ public class Location {
             columnDefinition = "datetime NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
     private Date updateTime;
 
-    public Integer getLocationId() {
-        return locationId;
+    public Integer getId() {
+        return id;
     }
 
-    public void setLocationId(Integer locationId) {
-        this.locationId = locationId;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    public String getLocationName() {
-        return locationName;
+    public String getName() {
+        return name;
     }
 
-    public void setLocationName(String locationName) {
-        this.locationName = locationName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getComment() {

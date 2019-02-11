@@ -1,5 +1,8 @@
 package cn.dsliang.library.entity;
 
+import cn.dsliang.library.enums.CollectionStatusEnum;
+import cn.dsliang.library.utils.EnumUtil;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -9,7 +12,7 @@ public class Collection {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "collection_id")
-    private Integer collectionId;
+    private Integer id;
 
     @ManyToOne
     @JoinColumn(name = "biblio_id")
@@ -39,12 +42,12 @@ public class Collection {
             columnDefinition = "datetime NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
     private Date updateTime;
 
-    public Integer getCollectionId() {
-        return collectionId;
+    public Integer getId() {
+        return id;
     }
 
-    public void setCollectionId(Integer collectionId) {
-        this.collectionId = collectionId;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public Biblio getBiblio() {
@@ -109,5 +112,10 @@ public class Collection {
 
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
+    }
+
+
+    public CollectionStatusEnum getStatusEnum() {
+        return EnumUtil.getByCode(status, CollectionStatusEnum.class);
     }
 }

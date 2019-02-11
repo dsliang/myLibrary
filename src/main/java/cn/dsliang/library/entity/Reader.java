@@ -9,13 +9,13 @@ public class Reader {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "reader_id")
-    private Integer readerId;
+    private Integer id;
 
     @Column(name = "reader_card")
-    private String readerCard;
+    private String card;
 
     @Column(name = "reader_name")
-    private String readerName;
+    private String name;
 
     @Column(name = "gender")
     private Integer gender;
@@ -36,28 +36,28 @@ public class Reader {
             columnDefinition = "datetime NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
     private Date updateTime;
 
-    public Integer getReaderId() {
-        return readerId;
+    public Integer getId() {
+        return id;
     }
 
-    public void setReaderId(Integer readerId) {
-        this.readerId = readerId;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    public String getReaderCard() {
-        return readerCard;
+    public String getCard() {
+        return card;
     }
 
-    public void setReaderCard(String readerCard) {
-        this.readerCard = readerCard;
+    public void setCard(String card) {
+        this.card = card;
     }
 
-    public String getReaderName() {
-        return readerName;
+    public String getName() {
+        return name;
     }
 
-    public void setReaderName(String readerName) {
-        this.readerName = readerName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Integer getGender() {

@@ -38,8 +38,7 @@ public class ReaderController {
         if (readerType == null)
             return ApiResponse.error("读者类型不存在");
 
-        Reader reader = new Reader();
-        BeanUtils.copyProperties(readerForm, reader);
+        Reader reader = readerForm.convert();
         reader.setReaderType(readerType);
         readerService.save(reader);
 

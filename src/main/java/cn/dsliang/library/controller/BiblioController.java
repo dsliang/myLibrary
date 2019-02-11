@@ -33,8 +33,8 @@ public class BiblioController {
     @ResponseBody
     ApiResponse save(@RequestBody Biblio biblio) {
         Biblio rawBiblio = new Biblio();
-        if (biblio.getBiblioId() != null) {
-            rawBiblio = biblioService.findById(biblio.getBiblioId());
+        if (biblio.getId() != null) {
+            rawBiblio = biblioService.findById(biblio.getId());
             if (rawBiblio == null)
                 return ApiResponse.error("借阅规则不存在");
         }

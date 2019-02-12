@@ -1,21 +1,20 @@
 package cn.dsliang.library.enums;
 
-public enum ResultEnum {
-
-    UP_TO_BORROW_LIMIT(20, "达到借阅上限"),
-    COLLECTION_STATUS_ERROR(21, "馆藏状态不正确"),
-    UP_TO_RENEW_LIMIT(22, "达到续借上限");
+public enum CirculationRecordStatusEnum implements CodeEnum {
+    Punctual(0, "守时"),
+    Overdue(1, "逾期");
 
 
     private Integer code;
 
     private String message;
 
-    ResultEnum(Integer code, String message) {
+    CirculationRecordStatusEnum(Integer code, String message) {
         this.code = code;
         this.message = message;
     }
 
+    @Override
     public Integer getCode() {
         return code;
     }

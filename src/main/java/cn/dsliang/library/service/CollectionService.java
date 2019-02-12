@@ -9,6 +9,8 @@ public interface CollectionService {
 
     Collection findById(Integer id);
 
+    Collection findByBarcode(String barcode);
+
     Page<Collection> list(Integer page, Integer size);
 
     void deleteById(Integer id);

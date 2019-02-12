@@ -15,6 +15,10 @@ public class Circulating {
     @JoinColumn(name = "reader_id")
     private Reader reader;
 
+    @OneToOne
+    @JoinColumn(name = "circulation_record_id")
+    private CirculationRecord circulationRecord;
+
     @ManyToOne
     @JoinColumn(name = "collection_id")
     private Collection collection;
@@ -47,6 +51,14 @@ public class Circulating {
 
     public void setReader(Reader reader) {
         this.reader = reader;
+    }
+
+    public CirculationRecord getCirculationRecord() {
+        return circulationRecord;
+    }
+
+    public void setCirculationRecord(CirculationRecord circulationRecord) {
+        this.circulationRecord = circulationRecord;
     }
 
     public Collection getCollection() {

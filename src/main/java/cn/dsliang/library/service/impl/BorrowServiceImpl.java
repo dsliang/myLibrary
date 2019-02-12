@@ -78,6 +78,7 @@ public class BorrowServiceImpl implements BorrowService {
         //5.往图书流通(实时)表插入一条新记录
         Circulating circulating = new Circulating();
         circulating.setReader(reader);
+        circulating.setCirculationRecord(circulationRecord);
         circulating.setCollection(collection);
         circulating.setBiblio(collection.getBiblio());
         circulating.setBorrowDate(borrowDate);

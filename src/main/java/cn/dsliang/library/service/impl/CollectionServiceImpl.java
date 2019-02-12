@@ -26,6 +26,11 @@ public class CollectionServiceImpl implements CollectionService {
     }
 
     @Override
+    public Collection findByBarcode(String barcode) {
+        return collectionRepository.findByBarcode(barcode);
+    }
+
+    @Override
     public Page<Collection> list(Integer page, Integer size) {
         Pageable pageable = new PageRequest(page, size);
         return collectionRepository.findAll(pageable);

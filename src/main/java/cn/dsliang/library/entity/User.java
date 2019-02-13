@@ -40,7 +40,6 @@ public class User {
     Date createTime;
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone="GMT+8")
-
     @Column(name = "update_time", insertable = false, updatable = false,
             columnDefinition = "datetime NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
     Date updateTime;

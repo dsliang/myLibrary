@@ -4,9 +4,7 @@ import cn.dsliang.library.entity.Rule;
 import cn.dsliang.library.repository.RuleRepository;
 import cn.dsliang.library.service.RuleService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -26,9 +24,17 @@ public class RuleServiceImpl implements RuleService {
     }
 
     @Override
-    public Page<Rule> list(Integer page, Integer size) {
+    public Page<Rule> list(String name, Integer status, Integer page, Integer size) {
+        Rule rule = new Rule();
+        rule.setName(name);
+        rule.setStatus(status);
+        ExampleMatcher matcher = ExampleMatcher.matching()
+                .withMatcher("name", ExampleMatcher.GenericPropertyMatchers.contains())
+                .withMatcher("status", ExampleMatcher.GenericPropertyMatchers.exact());
+        Example<Rule> example = Example.of(rule, matcher);
         Pageable pageable = new PageRequest(page, size);
-        return ruleRepository.findAll(pageable);
+
+        return ruleRepository.findAll(example, pageable);
     }
 
     @Override

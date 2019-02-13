@@ -1,6 +1,9 @@
 package cn.dsliang.library.entity;
 
 
+import cn.dsliang.library.enums.RuleStatusEnum;
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -29,12 +32,14 @@ public class Rule {
     private Integer renewalDays;
 
     @Column(name = "status", columnDefinition = "tinyint(1)")
-    private Integer status;
+    private Integer status = RuleStatusEnum.Valid.getCode();
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     @Column(name = "create_time", insertable = false, updatable = false,
             columnDefinition = "datetime NULL DEFAULT CURRENT_TIMESTAMP")
     private Date createTime;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     @Column(name = "update_time", insertable = false, updatable = false,
             columnDefinition = "datetime NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
     private Date updateTime;

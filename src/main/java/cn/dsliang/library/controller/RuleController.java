@@ -4,12 +4,16 @@ import cn.dsliang.library.common.ApiResponse;
 import cn.dsliang.library.common.EasyuiPageResult;
 import cn.dsliang.library.entity.Rule;
 import cn.dsliang.library.entity.User;
+import cn.dsliang.library.enums.ResultEnum;
+import cn.dsliang.library.exception.BusinessException;
 import cn.dsliang.library.service.RuleService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+
+import static cn.dsliang.library.enums.ResultEnum.RULE_NOT_EXIST;
 
 @Controller
 @RequestMapping("/api/system/rule")
@@ -22,9 +26,9 @@ public class RuleController {
     @ResponseBody
     ApiResponse<Rule> findRule(@RequestParam(name = "ruleId", required = true) Integer id) {
         Rule rule = ruleService.findById(id);
-        if (rule == null) {
-            return ApiResponse.error("借阅规则不存在");
-        }
+        if (rule == null)
+            throw new BusinessException(ResultEnum.RULE_NOT_EXIST);
+
         return ApiResponse.success(rule);
     }
 
@@ -35,9 +39,8 @@ public class RuleController {
         if (rule.getId() != null) {
             rawRule = ruleService.findById(rule.getId());
             if (rawRule == null)
-                return ApiResponse.error("借阅规则不存在");
+                throw new BusinessException(ResultEnum.RULE_NOT_EXIST);
         }
-
         BeanUtils.copyProperties(rule, rawRule);
         ruleService.save(rawRule);
 
@@ -46,8 +49,11 @@ public class RuleController {
 
     @GetMapping("/list")
     @ResponseBody
-    ApiResponse<EasyuiPageResult<Rule>> list(@RequestParam(defaultValue = "1") Integer page, @RequestParam(name = "rows", defaultValue = "10") Integer size) {
-        Page<Rule> rulePage = ruleService.list(page - 1, size);
+    ApiResponse<EasyuiPageResult<Rule>> list(@RequestParam(required = false) String name,
+                                             @RequestParam(required = false) Integer status,
+                                             @RequestParam(defaultValue = "1") Integer page,
+                                             @RequestParam(name = "rows", defaultValue = "10") Integer size) {
+        Page<Rule> rulePage = ruleService.list(name, status, page - 1, size);
         return ApiResponse.success(
                 new EasyuiPageResult<Rule>(rulePage.getTotalElements(), rulePage.getContent()));
     }

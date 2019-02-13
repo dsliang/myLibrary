@@ -9,7 +9,7 @@ public interface RuleService {
 
     Rule findById(Integer id);
 
-    Page<Rule> list(Integer page, Integer size);
+    Page<Rule> list(String name, Integer status, Integer page, Integer size);
 
     void deleteById(Integer id);
 }

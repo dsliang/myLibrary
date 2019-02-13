@@ -4,9 +4,7 @@ import cn.dsliang.library.entity.User;
 import cn.dsliang.library.repository.UserRepository;
 import cn.dsliang.library.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -28,9 +26,17 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Page<User> list(Integer page, Integer size) {
+    public Page<User> list(String account, Integer status, Integer page, Integer size) {
+        User user = new User();
+        user.setAccount(account);
+        user.setStatus(status);
+        ExampleMatcher matcher = ExampleMatcher.matching()
+                .withMatcher("account", ExampleMatcher.GenericPropertyMatchers.contains())
+                .withMatcher("status", ExampleMatcher.GenericPropertyMatchers.exact());
+        Example<User> example = Example.of(user, matcher);
         Pageable pageable = new PageRequest(page, size);
-        return userRepository.findAll(pageable);
+
+        return userRepository.findAll(example, pageable);
     }
 
     @Override

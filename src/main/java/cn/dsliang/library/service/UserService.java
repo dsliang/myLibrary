@@ -9,7 +9,7 @@ public interface UserService {
 
     User findById(Integer id);
 
-    Page<User> list(Integer page, Integer size);
+    Page<User> list(String account, Integer status, Integer page, Integer size);
 
     void deleteById(Integer id);
 }

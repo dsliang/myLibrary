@@ -3,6 +3,8 @@ package cn.dsliang.library.controller;
 import cn.dsliang.library.common.ApiResponse;
 import cn.dsliang.library.common.EasyuiPageResult;
 import cn.dsliang.library.entity.User;
+import cn.dsliang.library.enums.ResultEnum;
+import cn.dsliang.library.exception.BusinessException;
 import cn.dsliang.library.service.UserService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +26,7 @@ public class UserController {
     ApiResponse<User> findUser(@RequestParam(name = "userId", required = true) Integer id) {
         User user = userService.findById(id);
         if (user == null)
-            return ApiResponse.error("用户不存在");
+            throw new BusinessException(ResultEnum.USER_NOT_EXIST);
         return ApiResponse.success(user);
     }
 
@@ -35,7 +37,7 @@ public class UserController {
         if (user.getId() != null) {
             rawUser = userService.findById(user.getId());
             if (rawUser == null)
-                return ApiResponse.error("用户不存在");
+                throw new BusinessException(ResultEnum.USER_NOT_EXIST);
         }
 
         BeanUtils.copyProperties(user, rawUser);
@@ -46,9 +48,11 @@ public class UserController {
 
     @GetMapping("/list")
     @ResponseBody
-    ApiResponse<EasyuiPageResult<User>> list(@RequestParam(defaultValue = "1") Integer page,
+    ApiResponse<EasyuiPageResult<User>> list(@RequestParam(required = false) String account,
+                                             @RequestParam(required = false) Integer status,
+                                             @RequestParam(defaultValue = "1") Integer page,
                                              @RequestParam(name = "rows", defaultValue = "10") Integer size) {
-        Page<User> userPage = userService.list(page - 1, size);
+        Page<User> userPage = userService.list(account, status, page - 1, size);
         return ApiResponse.success(
                 new EasyuiPageResult<User>(userPage.getTotalElements(), userPage.getContent()));
     }

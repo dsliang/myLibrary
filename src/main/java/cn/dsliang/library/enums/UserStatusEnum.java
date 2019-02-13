@@ -1,21 +1,21 @@
 package cn.dsliang.library.enums;
 
-public enum ResultEnum {
+import org.omg.CORBA.DynAnyPackage.Invalid;
 
-    USER_NOT_EXIST(10, "用户不存在"),
-    UP_TO_BORROW_LIMIT(11, "达到借阅上限"),
-    COLLECTION_STATUS_ERROR(12, "馆藏状态不正确"),
-    UP_TO_RENEW_LIMIT(13, "达到续借上限");
+public enum UserStatusEnum implements CodeEnum {
+    Valid(0, "有效"),
+    Invalid(1, "无效");
 
     private Integer code;
 
     private String message;
 
-    ResultEnum(Integer code, String message) {
+    UserStatusEnum(Integer code, String message) {
         this.code = code;
         this.message = message;
     }
 
+    @Override
     public Integer getCode() {
         return code;
     }

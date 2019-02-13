@@ -46,8 +46,10 @@ public class LocationController {
 
     @GetMapping("/list")
     @ResponseBody
-    ApiResponse<EasyuiPageResult<Location>> list(@RequestParam(defaultValue = "1") Integer page, @RequestParam(name = "rows", defaultValue = "10") Integer size) {
-        Page locationPage = locationService.list(page - 1, size);
+    ApiResponse<EasyuiPageResult<Location>> list(@RequestParam(required = false) String name,
+                                                 @RequestParam(defaultValue = "1") Integer page,
+                                                 @RequestParam(name = "rows", defaultValue = "10") Integer size) {
+        Page locationPage = locationService.list(name, page - 1, size);
         return ApiResponse.success(
                 new EasyuiPageResult<Location>(locationPage.getTotalElements(), locationPage.getContent()));
     }

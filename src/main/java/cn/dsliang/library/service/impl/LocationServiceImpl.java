@@ -4,9 +4,7 @@ import cn.dsliang.library.entity.Location;
 import cn.dsliang.library.repository.LocationRepository;
 import cn.dsliang.library.service.LocationService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -26,9 +24,16 @@ public class LocationServiceImpl implements LocationService {
     }
 
     @Override
-    public Page<Location> list(Integer page, Integer size) {
+    public Page<Location> list(String name, Integer page, Integer size) {
+        Location location = new Location();
+        location.setName(name);
+
+        ExampleMatcher matcher = ExampleMatcher.matching()
+                .withMatcher("name", ExampleMatcher.GenericPropertyMatchers.contains());
+        Example<Location> example = Example.of(location, matcher);
         Pageable pageable = new PageRequest(page, size);
-        return locationRepository.findAll(pageable);
+
+        return locationRepository.findAll(example, pageable);
     }
 
     @Override

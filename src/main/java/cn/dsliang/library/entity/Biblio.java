@@ -1,5 +1,6 @@
 package cn.dsliang.library.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -41,10 +42,12 @@ public class Biblio {
     @Column(name = "page")
     private Integer page;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     @Column(name = "create_time", insertable = false, updatable = false,
             columnDefinition = "datetime NULL DEFAULT CURRENT_TIMESTAMP")
     private Date createTime;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     @Column(name = "update_time", insertable = false, updatable = false,
             columnDefinition = "datetime NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
     private Date updateTime;

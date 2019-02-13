@@ -3,6 +3,8 @@ package cn.dsliang.library.controller;
 import cn.dsliang.library.common.ApiResponse;
 import cn.dsliang.library.common.EasyuiPageResult;
 import cn.dsliang.library.entity.Location;
+import cn.dsliang.library.enums.ResultEnum;
+import cn.dsliang.library.exception.BusinessException;
 import cn.dsliang.library.service.LocationService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +27,8 @@ public class LocationController {
     ApiResponse<Location> findLocation(@RequestParam(name = "locationId", required = true) Integer id) {
         Location location = locationService.findById(id);
         if (location == null)
-            return ApiResponse.error(" 馆藏地址不存在");
+            throw new BusinessException(ResultEnum.LOCATION_NOT_EXIST);
+
         return ApiResponse.success(location);
     }
 

@@ -1,13 +1,10 @@
 package cn.dsliang.library.service.impl;
 
 import cn.dsliang.library.entity.ReaderType;
-import cn.dsliang.library.repository.ReaderRepository;
 import cn.dsliang.library.repository.ReaderTypeRepository;
 import cn.dsliang.library.service.ReaderTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -27,9 +24,18 @@ public class ReaderTypeServiceImpl implements ReaderTypeService {
     }
 
     @Override
-    public Page<ReaderType> list(Integer page, Integer size) {
+    public Page<ReaderType> list(String readerTypeName, Integer status, Integer page, Integer size) {
+        ReaderType readerType = new ReaderType();
+        readerType.setName(readerTypeName);
+        readerType.setStatus(status);
+
+        ExampleMatcher matcher = ExampleMatcher.matching()
+                .withMatcher("name", ExampleMatcher.GenericPropertyMatchers.contains())
+                .withMatcher("status", ExampleMatcher.GenericPropertyMatchers.exact());
+        Example<ReaderType> example = Example.of(readerType, matcher);
         Pageable pageable = new PageRequest(page, size);
-        return readerTypeRepository.findAll(pageable);
+
+        return readerTypeRepository.findAll(example, pageable);
     }
 
     @Override

@@ -1,5 +1,8 @@
 package cn.dsliang.library.entity;
 
+import cn.dsliang.library.enums.ReaderTypeStatusEnum;
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -19,15 +22,17 @@ public class ReaderType {
     private Rule rule;
 
     @Column(name = "status", columnDefinition = "tinyint(1)")
-    private Integer status;
+    private Integer status = ReaderTypeStatusEnum.Valid.getCode();
 
     @Column(name = "comment")
     private String comment;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     @Column(name = "create_time", updatable = false, insertable = false,
             columnDefinition = "datetime NULL DEFAULT CURRENT_TIMESTAMP")
     private Date createTime;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     @Column(name = "update_time", updatable = false, insertable = false,
             columnDefinition = "datetime NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
     private Date updateTime;

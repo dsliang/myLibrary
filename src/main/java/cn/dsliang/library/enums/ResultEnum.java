@@ -7,10 +7,10 @@ public enum ResultEnum {
     COLLECTION_STATUS_ERROR(12, "馆藏状态不正确"),
     UP_TO_RENEW_LIMIT(13, "达到续借上限"),
     RULE_NOT_EXIST(14, "借阅规则不存在"),
-    LOCATION_NOT_EXIST(15,"馆藏地址不存在"),
-    BIBLIO_NOT_EXIST(16,"书目不存在"),
-    COLLECTION_NOT_EXIST(16,"馆藏不存在")
-    ;
+    LOCATION_NOT_EXIST(15, "馆藏地址不存在"),
+    BIBLIO_NOT_EXIST(16, "书目不存在"),
+    COLLECTION_NOT_EXIST(17, "馆藏不存在"),
+    READER_TYPE_NOT_EXIST(18, "读者类型不存在");
 
     private Integer code;
 

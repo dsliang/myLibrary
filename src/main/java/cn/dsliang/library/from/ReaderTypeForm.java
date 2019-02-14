@@ -56,16 +56,5 @@ public class ReaderTypeForm {
     public void setComment(String comment) {
         this.comment = comment;
     }
-
-    public ReaderType convert() {
-        ReaderType readerType = new ReaderType();
-        readerType.setId(readerTypeId);
-        readerType.setName(readerTypeName);
-        readerType.setStatus(status);
-        readerType.setComment(comment);
-
-        return readerType;
-    }
-
 }
 

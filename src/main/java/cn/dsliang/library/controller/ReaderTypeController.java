@@ -4,6 +4,8 @@ import cn.dsliang.library.common.ApiResponse;
 import cn.dsliang.library.common.EasyuiPageResult;
 import cn.dsliang.library.entity.ReaderType;
 import cn.dsliang.library.entity.Rule;
+import cn.dsliang.library.enums.ResultEnum;
+import cn.dsliang.library.exception.BusinessException;
 import cn.dsliang.library.from.ReaderTypeForm;
 import cn.dsliang.library.service.ReaderTypeService;
 import cn.dsliang.library.service.RuleService;
@@ -12,6 +14,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+
+import javax.persistence.criteria.CriteriaBuilder;
 
 @Controller
 @RequestMapping("/api/system/readerType")
@@ -27,9 +31,9 @@ public class ReaderTypeController {
     @ResponseBody
     ApiResponse<ReaderType> findReaderType(@RequestParam(name = "readerTypeId", required = true) Integer id) {
         ReaderType readerType = readerTypeService.findById(id);
-        if (readerType == null) {
-            return ApiResponse.error("读者类型不存在");
-        }
+        if (readerType == null)
+            throw new BusinessException(ResultEnum.READER_TYPE_NOT_EXIST);
+
         return ApiResponse.success(readerType);
     }
 
@@ -38,19 +42,30 @@ public class ReaderTypeController {
     ApiResponse save(@RequestBody ReaderTypeForm readerTypeForm) {
         Rule rule = ruleService.findById(readerTypeForm.getRuleId());
         if (rule == null)
-            return ApiResponse.error("借阅规则不存在");
+            throw new BusinessException(ResultEnum.RULE_NOT_EXIST);
 
-        ReaderType rawReaderType = readerTypeForm.convert();
-        rawReaderType.setRule(rule);
-        readerTypeService.save(rawReaderType);
+        ReaderType readerType = new ReaderType();
+        if (readerTypeForm.getReaderTypeId() != null) {
+            readerType = readerTypeService.findById(readerTypeForm.getReaderTypeId());
+            if (readerType == null)
+                throw new BusinessException(ResultEnum.READER_TYPE_NOT_EXIST);
+        }
+        BeanUtils.copyProperties(readerTypeForm, readerType);
+        readerType.setName(readerTypeForm.getReaderTypeName());
+        readerType.setRule(rule);
+        readerTypeService.save(readerType);
 
         return ApiResponse.success();
     }
 
     @GetMapping("/list")
     @ResponseBody
-    ApiResponse<EasyuiPageResult<ReaderType>> list(@RequestParam(defaultValue = "1") Integer page, @RequestParam(name = "rows", defaultValue = "10") Integer size) {
-        Page<ReaderType> readerTypePage = readerTypeService.list(page - 1, size);
+    ApiResponse<EasyuiPageResult<ReaderType>> list(
+            String readerTypeName,
+            Integer status,
+            @RequestParam(defaultValue = "1") Integer page,
+            @RequestParam(name = "rows", defaultValue = "10") Integer size) {
+        Page<ReaderType> readerTypePage = readerTypeService.list(readerTypeName,status,page - 1, size);
         return ApiResponse.success(
                 new EasyuiPageResult<ReaderType>(readerTypePage.getTotalElements(), readerTypePage.getContent()));
     }

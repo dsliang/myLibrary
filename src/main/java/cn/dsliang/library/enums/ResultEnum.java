@@ -10,7 +10,9 @@ public enum ResultEnum {
     LOCATION_NOT_EXIST(15, "馆藏地址不存在"),
     BIBLIO_NOT_EXIST(16, "书目不存在"),
     COLLECTION_NOT_EXIST(17, "馆藏不存在"),
-    READER_TYPE_NOT_EXIST(18, "读者类型不存在");
+    READER_TYPE_NOT_EXIST(18, "读者类型不存在"),
+    READER_NOT_EXIST(19, "读者不存在")
+    ;
 
     private Integer code;
 

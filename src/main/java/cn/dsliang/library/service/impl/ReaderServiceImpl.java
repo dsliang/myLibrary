@@ -4,9 +4,7 @@ import cn.dsliang.library.entity.Reader;
 import cn.dsliang.library.repository.ReaderRepository;
 import cn.dsliang.library.service.ReaderService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -27,9 +25,18 @@ public class ReaderServiceImpl implements ReaderService {
     }
 
     @Override
-    public Page<Reader> list(Integer page, Integer size) {
+    public Page<Reader> list(String readerName, Integer status, Integer page, Integer size) {
+        Reader reader = new Reader();
+        reader.setName(readerName);
+        reader.setStatus(status);
+
+        ExampleMatcher matcher = ExampleMatcher.matching()
+                .withMatcher("name", ExampleMatcher.GenericPropertyMatchers.contains())
+                .withMatcher("status", ExampleMatcher.GenericPropertyMatchers.exact());
+        Example<Reader> example = Example.of(reader, matcher);
         Pageable pageable = new PageRequest(page, size);
-        return readerRepository.findAll(pageable);
+
+        return readerRepository.findAll(example,pageable);
     }
 
     @Override

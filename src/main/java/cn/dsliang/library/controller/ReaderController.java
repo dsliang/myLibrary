@@ -3,7 +3,8 @@ package cn.dsliang.library.controller;
 import cn.dsliang.library.common.ApiResponse;
 import cn.dsliang.library.common.EasyuiPageResult;
 import cn.dsliang.library.entity.*;
-import cn.dsliang.library.from.CollectionForm;
+import cn.dsliang.library.enums.ResultEnum;
+import cn.dsliang.library.exception.BusinessException;
 import cn.dsliang.library.from.ReaderForm;
 import cn.dsliang.library.service.*;
 import org.springframework.beans.BeanUtils;
@@ -27,7 +28,8 @@ public class ReaderController {
     ApiResponse<Reader> findReader(@RequestParam(name = "readerId", required = true) Integer id) {
         Reader reader = readerService.findById(id);
         if (reader == null)
-            return ApiResponse.error("读者不存在");
+            throw new BusinessException(ResultEnum.READER_NOT_EXIST);
+
         return ApiResponse.success(reader);
     }
 
@@ -36,9 +38,18 @@ public class ReaderController {
     ApiResponse save(@RequestBody ReaderForm readerForm) {
         ReaderType readerType = readerTypeService.findById(readerForm.getReaderTypeId());
         if (readerType == null)
-            return ApiResponse.error("读者类型不存在");
+            throw new BusinessException(ResultEnum.READER_TYPE_NOT_EXIST);
 
-        Reader reader = readerForm.convert();
+        Reader reader = new Reader();
+        if (readerForm.getReaderId() != null) {
+            reader = readerService.findById(readerForm.getReaderId());
+            if (reader == null)
+                throw new BusinessException(ResultEnum.READER_NOT_EXIST);
+        }
+        BeanUtils.copyProperties(readerForm, reader);
+        reader.setId(readerForm.getReaderId());
+        reader.setCard(readerForm.getReaderCard());
+        reader.setName(readerForm.getReaderName());
         reader.setReaderType(readerType);
         readerService.save(reader);
 
@@ -47,8 +58,12 @@ public class ReaderController {
 
     @GetMapping("/list")
     @ResponseBody
-    ApiResponse<EasyuiPageResult<Reader>> list(@RequestParam(defaultValue = "1") Integer page, @RequestParam(name = "rows", defaultValue = "10") Integer size) {
-        Page<Reader> collectionPage = readerService.list(page - 1, size);
+    ApiResponse<EasyuiPageResult<Reader>> list(
+            String readerName,
+            Integer status,
+            @RequestParam(defaultValue = "1") Integer page,
+            @RequestParam(name = "rows", defaultValue = "10") Integer size) {
+        Page<Reader> collectionPage = readerService.list(readerName, status, page - 1, size);
         return ApiResponse.success(new EasyuiPageResult<Reader>(collectionPage.getTotalElements(), collectionPage.getContent()));
     }
 

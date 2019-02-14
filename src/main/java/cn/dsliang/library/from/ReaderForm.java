@@ -66,15 +66,4 @@ public class ReaderForm {
     public void setStatus(Integer status) {
         this.status = status;
     }
-
-    public Reader convert() {
-        Reader reader = new Reader();
-        reader.setId(readerId);
-        reader.setCard(readerCard);
-        reader.setName(readerName);
-        reader.setGender(gender);
-        reader.setStatus(status);
-
-        return reader;
-    }
 }

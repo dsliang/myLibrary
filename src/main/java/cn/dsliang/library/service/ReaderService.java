@@ -1,6 +1,5 @@
 package cn.dsliang.library.service;
 
-import cn.dsliang.library.entity.Biblio;
 import cn.dsliang.library.entity.Reader;
 import org.springframework.data.domain.Page;
 
@@ -9,7 +8,7 @@ public interface ReaderService {
 
     Reader findById(Integer id);
 
-    Page<Reader> list(Integer page, Integer size);
+    Page<Reader> list(String readerName, Integer status, Integer page, Integer size);
 
     void deleteById(Integer id);
 }

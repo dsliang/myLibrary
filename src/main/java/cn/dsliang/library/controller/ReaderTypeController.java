@@ -51,6 +51,7 @@ public class ReaderTypeController {
                 throw new BusinessException(ResultEnum.READER_TYPE_NOT_EXIST);
         }
         BeanUtils.copyProperties(readerTypeForm, readerType);
+        readerType.setId(readerTypeForm.getReaderTypeId());
         readerType.setName(readerTypeForm.getReaderTypeName());
         readerType.setRule(rule);
         readerTypeService.save(readerType);

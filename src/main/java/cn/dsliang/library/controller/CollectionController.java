@@ -62,6 +62,7 @@ public class CollectionController {
                 throw new BusinessException(ResultEnum.COLLECTION_NOT_EXIST);
         }
         BeanUtils.copyProperties(collectionForm, collection);
+        collection.setId(collectionForm.getCollectionId());
         collection.setBiblio(biblio);
         collection.setLocation(location);
         collectionService.save(collection);

@@ -31,9 +31,9 @@ public class CollectionServiceImpl implements CollectionService {
     }
 
     @Override
-    public Page<Collection> list(Integer page, Integer size) {
+    public Page<Collection> list(Integer biblioId, Integer page, Integer size) {
         Pageable pageable = new PageRequest(page, size);
-        return collectionRepository.findAll(pageable);
+        return collectionRepository.findByBiblioId(biblioId, pageable);
     }
 
     @Override

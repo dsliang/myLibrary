@@ -2,6 +2,8 @@ package cn.dsliang.library.entity;
 
 import cn.dsliang.library.enums.CollectionStatusEnum;
 import cn.dsliang.library.utils.EnumUtil;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -22,7 +24,7 @@ public class Collection {
     @JoinColumn(name = "location_id")
     private Location location;
 
-    @Column(name = "barcode")
+    @Column(name = "barcode", unique = true)
     private String barcode;
 
     @Column(name = "category_number")
@@ -32,12 +34,14 @@ public class Collection {
     private Integer serialNumber;
 
     @Column(name = "status", columnDefinition = "tinyint(1)")
-    private Integer status;
+    private Integer status = CollectionStatusEnum.NORMAL.getCode();
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     @Column(name = "create_time", insertable = false, updatable = false,
             columnDefinition = "datetime NULL DEFAULT CURRENT_TIMESTAMP")
     private Date createTime;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     @Column(name = "update_time", insertable = false, updatable = false,
             columnDefinition = "datetime NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
     private Date updateTime;
@@ -114,7 +118,7 @@ public class Collection {
         this.updateTime = updateTime;
     }
 
-
+    @JsonIgnore
     public CollectionStatusEnum getStatusEnum() {
         return EnumUtil.getByCode(status, CollectionStatusEnum.class);
     }

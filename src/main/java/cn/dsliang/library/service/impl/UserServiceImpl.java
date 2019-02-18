@@ -1,6 +1,10 @@
 package cn.dsliang.library.service.impl;
 
 import cn.dsliang.library.entity.User;
+import cn.dsliang.library.enums.ResultEnum;
+import cn.dsliang.library.enums.UserStatusEnum;
+import cn.dsliang.library.exception.BusinessException;
+import cn.dsliang.library.helper.SecurityHelper;
 import cn.dsliang.library.repository.UserRepository;
 import cn.dsliang.library.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,5 +46,23 @@ public class UserServiceImpl implements UserService {
     @Override
     public void deleteById(Integer id) {
         userRepository.delete(id);
+    }
+
+    @Override
+    public void login(String account, String password) {
+        User user = userRepository.findByAccount(account);
+        if (user == null)
+            throw new BusinessException(ResultEnum.USER_NOT_EXIST);
+        if (user.getStatusEnum() != UserStatusEnum.Valid)
+            throw new BusinessException(ResultEnum.USER_STATUS_INVALID);
+        if (!user.getPassword().equals(password))
+            throw new BusinessException(ResultEnum.USER_PASSWORD_ERROR);
+
+        SecurityHelper.setUser(user);
+    }
+
+    @Override
+    public void logout() {
+        SecurityHelper.removeUser();
     }
 }

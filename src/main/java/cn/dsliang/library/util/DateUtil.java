@@ -1,6 +1,5 @@
-package cn.dsliang.library.utils;
+package cn.dsliang.library.util;
 
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 

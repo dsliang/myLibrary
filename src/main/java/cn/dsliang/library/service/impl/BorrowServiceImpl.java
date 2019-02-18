@@ -8,16 +8,13 @@ import cn.dsliang.library.repository.CirculatingRepository;
 import cn.dsliang.library.repository.CirculationRecordRepository;
 import cn.dsliang.library.repository.BorrowRepository;
 import cn.dsliang.library.service.BorrowService;
-import cn.dsliang.library.utils.DateUtil;
-import com.sun.xml.internal.bind.v2.TODO;
+import cn.dsliang.library.util.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.List;
-
-import static cn.dsliang.library.enums.ResultEnum.UP_TO_BORROW_LIMIT;
 
 @Service
 public class BorrowServiceImpl implements BorrowService {

@@ -1,7 +1,7 @@
 package cn.dsliang.library.entity;
 
 import cn.dsliang.library.enums.CollectionStatusEnum;
-import cn.dsliang.library.utils.EnumUtil;
+import cn.dsliang.library.util.EnumUtil;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 

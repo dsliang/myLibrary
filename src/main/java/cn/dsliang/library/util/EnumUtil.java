@@ -1,4 +1,4 @@
-package cn.dsliang.library.utils;
+package cn.dsliang.library.util;
 
 import cn.dsliang.library.enums.CodeEnum;
 

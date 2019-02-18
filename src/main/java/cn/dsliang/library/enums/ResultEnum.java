@@ -11,7 +11,11 @@ public enum ResultEnum {
     BIBLIO_NOT_EXIST(16, "书目不存在"),
     COLLECTION_NOT_EXIST(17, "馆藏不存在"),
     READER_TYPE_NOT_EXIST(18, "读者类型不存在"),
-    READER_NOT_EXIST(19, "读者不存在")
+    READER_NOT_EXIST(19, "读者不存在"),
+    USER_STATUS_INVALID(20, "用户状态无效"),
+    USER_PASSWORD_ERROR(21,"用户密码错误")
+
+
     ;
 
     private Integer code;

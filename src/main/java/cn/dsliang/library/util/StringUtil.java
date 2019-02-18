@@ -1,4 +1,4 @@
-package cn.dsliang.library.utils;
+package cn.dsliang.library.util;
 
 public class StringUtil {
     static public boolean isNotEmpty(String str) {

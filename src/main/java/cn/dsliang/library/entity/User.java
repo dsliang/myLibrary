@@ -1,12 +1,9 @@
 package cn.dsliang.library.entity;
 
 import cn.dsliang.library.enums.UserStatusEnum;
+import cn.dsliang.library.util.EnumUtil;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.sun.istack.internal.NotNull;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedBy;
-import org.springframework.data.annotation.LastModifiedDate;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -34,12 +31,12 @@ public class User {
     @Column(name = "status", columnDefinition = "tinyint(1)")
     Integer status = UserStatusEnum.Valid.getCode();
 
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone="GMT+8")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     @Column(name = "create_time", insertable = false, updatable = false,
             columnDefinition = "datetime NULL DEFAULT CURRENT_TIMESTAMP")
     Date createTime;
 
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone="GMT+8")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     @Column(name = "update_time", insertable = false, updatable = false,
             columnDefinition = "datetime NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
     Date updateTime;
@@ -106,5 +103,10 @@ public class User {
 
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
+    }
+
+    @JsonIgnore
+    public UserStatusEnum getStatusEnum() {
+        return EnumUtil.getByCode(status, UserStatusEnum.class);
     }
 }

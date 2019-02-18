@@ -4,17 +4,15 @@ import cn.dsliang.library.entity.*;
 import cn.dsliang.library.enums.ResultEnum;
 import cn.dsliang.library.exception.BusinessException;
 import cn.dsliang.library.repository.CirculatingRepository;
-import cn.dsliang.library.repository.CirculationRecordRepository;
 import cn.dsliang.library.repository.ReaderRepository;
 import cn.dsliang.library.repository.RenewRepository;
 import cn.dsliang.library.service.RenewService;
-import cn.dsliang.library.utils.DateUtil;
+import cn.dsliang.library.util.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
-import java.util.List;
 
 @Service
 public class RenewServiceImpl implements RenewService {

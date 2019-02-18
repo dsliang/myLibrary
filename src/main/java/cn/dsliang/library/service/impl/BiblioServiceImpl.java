@@ -3,7 +3,7 @@ package cn.dsliang.library.service.impl;
 import cn.dsliang.library.entity.Biblio;
 import cn.dsliang.library.repository.BiblioRepository;
 import cn.dsliang.library.service.BiblioService;
-import cn.dsliang.library.utils.StringUtil;
+import cn.dsliang.library.util.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
 import org.springframework.data.jpa.domain.Specification;

@@ -1,0 +1,58 @@
+html, body {
+    height: 100%;
+    padding: 0;
+    margin: 0;
+}
+
+ul, li, a, span, p, div {
+    list-style: none;
+    text-decoration: none;
+    margin: 0;
+    padding: 0;
+}
+
+.clearfix:after {
+    content: "020";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+}
+
+.clearfix {
+    /* 触发 hasLayout */
+    zoom: 1;
+}
+
+.container {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    height: 100%;
+}
+
+.tab-guide {
+    padding: 10px;
+    font-size: small;
+}
+
+.search-bar {
+    padding: 10px;
+}
+
+.search-item {
+    /*float: left;*/
+    /*width: 250px;*/
+}
+
+.search-item input {
+    /*width: 60%;*/
+}
+
+.toolbar {
+    padding: 10px;
+}
+
+.data-table {
+
+}
+

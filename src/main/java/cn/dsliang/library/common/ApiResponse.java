@@ -1,6 +1,6 @@
 package cn.dsliang.library.common;
 
-import cn.dsliang.library.entity.User;
+import cn.dsliang.library.enums.ApiResponseEnum;
 
 public class ApiResponse<T> {
     private Integer code;
@@ -14,11 +14,11 @@ public class ApiResponse<T> {
     }
 
     static public <T> ApiResponse<T> success(T data) {
-        return new ApiResponse<T>(0, "success", data);
+        return new ApiResponse<T>(ApiResponseEnum.SUCCESS.getCode(), ApiResponseEnum.SUCCESS.getMessage(), data);
     }
 
     static public <T> ApiResponse<T> success() {
-        return new ApiResponse<T>(0, "success", null);
+        return new ApiResponse<T>(ApiResponseEnum.SUCCESS.getCode(), ApiResponseEnum.SUCCESS.getMessage(), null);
     }
 
     public static <T> ApiResponse<T> error(Integer code, String msg) {
@@ -26,7 +26,7 @@ public class ApiResponse<T> {
     }
 
     public static <T> ApiResponse<T> error(String msg) {
-        return new ApiResponse<T>(1, msg, null);
+        return new ApiResponse<T>(ApiResponseEnum.ERROR.getCode(), ApiResponseEnum.ERROR.getMessage(), null);
     }
 
     public Integer getCode() {

@@ -1,28 +1,16 @@
 package cn.dsliang.library.helper;
 
 import cn.dsliang.library.entity.User;
-import cn.dsliang.library.service.UserService;
 import cn.dsliang.library.util.CommUtil;
 import cn.dsliang.library.util.CookieUtil;
-import cn.dsliang.library.util.JacksonUtil;
 import cn.dsliang.library.util.StringUtil;
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
-import com.sun.deploy.net.HttpResponse;
 import org.springframework.stereotype.Component;
-import org.springframework.web.util.WebUtils;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.net.InetAddress;
-import java.net.UnknownHostException;
-import java.text.CollationKey;
-import java.util.Arrays;
-import java.util.List;
 import java.util.concurrent.TimeUnit;
-import java.util.stream.Collectors;
 
 @Component
 public class SecurityHelper {

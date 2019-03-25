@@ -15,7 +15,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import javax.persistence.criteria.CriteriaBuilder;
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 @RequestMapping("/api/system/readerType")
@@ -29,12 +30,14 @@ public class ReaderTypeController {
 
     @GetMapping
     @ResponseBody
-    ApiResponse<ReaderType> findReaderType(@RequestParam(name = "readerTypeId", required = true) Integer id) {
-        ReaderType readerType = readerTypeService.findById(id);
-        if (readerType == null)
+    ApiResponse<ReaderTypeForm> findReaderType(@RequestParam(name = "readerTypeId", required = true) Integer id) {
+        ReaderTypeForm typeForm = new ReaderTypeForm();
+        ReaderType type = readerTypeService.findById(id);
+        if (type == null)
             throw new BusinessException(ResultEnum.READER_TYPE_NOT_EXIST);
+        copyProperties(type, typeForm);
 
-        return ApiResponse.success(readerType);
+        return ApiResponse.success(typeForm);
     }
 
     @PostMapping("/save")
@@ -59,23 +62,39 @@ public class ReaderTypeController {
         return ApiResponse.success();
     }
 
-    @GetMapping("/list")
+    @PostMapping("/list")
     @ResponseBody
-    ApiResponse<EasyuiPageResult<ReaderType>> list(
+    ApiResponse<EasyuiPageResult<ReaderTypeForm>> list(
             String readerTypeName,
             Integer status,
             @RequestParam(defaultValue = "1") Integer page,
             @RequestParam(name = "rows", defaultValue = "10") Integer size) {
-        Page<ReaderType> readerTypePage = readerTypeService.list(readerTypeName,status,page - 1, size);
+        List<ReaderTypeForm> typeForms = new ArrayList<>();
+        Page<ReaderType> readerTypePage = readerTypeService.list(readerTypeName, status, page - 1, size);
+        for (ReaderType type : readerTypePage.getContent()) {
+            ReaderTypeForm typeForm = new ReaderTypeForm();
+            copyProperties(type, typeForm);
+
+            typeForms.add(typeForm);
+        }
+
         return ApiResponse.success(
-                new EasyuiPageResult<ReaderType>(readerTypePage.getTotalElements(), readerTypePage.getContent()));
+                new EasyuiPageResult<ReaderTypeForm>(readerTypePage.getTotalElements(), typeForms));
     }
 
     @GetMapping("/delete")
     @ResponseBody
     ApiResponse delete(@RequestParam(name = "readerTypeId", required = true) Integer id) {
         readerTypeService.deleteById(id);
+
         return ApiResponse.success();
     }
 
+    private void copyProperties(ReaderType type, ReaderTypeForm typeForm) {
+        BeanUtils.copyProperties(type, typeForm);
+        typeForm.setReaderTypeId(type.getId());
+        typeForm.setReaderTypeName(type.getName());
+        typeForm.setRuleId(type.getRule().getId());
+        typeForm.setRuleName(type.getRule().getName());
+    }
 }

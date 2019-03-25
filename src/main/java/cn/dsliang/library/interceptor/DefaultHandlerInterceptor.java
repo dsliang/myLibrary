@@ -1,11 +1,11 @@
 package cn.dsliang.library.interceptor;
 
 import cn.dsliang.library.common.ApiResponse;
+import cn.dsliang.library.enums.ApiResponseEnum;
 import cn.dsliang.library.helper.SecurityHelper;
 import cn.dsliang.library.helper.WebHelper;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.util.WebUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -31,7 +31,7 @@ public class DefaultHandlerInterceptor implements HandlerInterceptor {
         String uri = req.getServletPath();
 
         if (!uri.equals("/api/common/login") && !SecurityHelper.isLogin()) {
-            WebHelper.writeJson(ApiResponse.error(2, "用户未登录"));
+            WebHelper.writeJson(ApiResponse.error(ApiResponseEnum.UNAUTHORIZED.getCode(), ApiResponseEnum.UNAUTHORIZED.getMessage()));
             return false;
         }
 

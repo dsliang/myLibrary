@@ -1,17 +1,13 @@
 package cn.dsliang.library.from;
 
-import cn.dsliang.library.entity.ReaderType;
-import cn.dsliang.library.entity.Rule;
-
-import javax.persistence.*;
-import java.util.Date;
-
 public class ReaderTypeForm {
     private Integer readerTypeId;
 
     private String readerTypeName;
 
     private Integer ruleId;
+
+    private String ruleName;
 
     private Integer status;
 
@@ -39,6 +35,14 @@ public class ReaderTypeForm {
 
     public void setRuleId(Integer ruleId) {
         this.ruleId = ruleId;
+    }
+
+    public String getRuleName() {
+        return ruleName;
+    }
+
+    public void setRuleName(String ruleName) {
+        this.ruleName = ruleName;
     }
 
     public Integer getStatus() {

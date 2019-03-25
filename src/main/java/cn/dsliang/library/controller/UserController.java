@@ -12,8 +12,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @Controller
 @RequestMapping("/api/system/user")
 public class UserController {
@@ -46,7 +44,7 @@ public class UserController {
         return ApiResponse.success();
     }
 
-    @GetMapping("/list")
+    @PostMapping("/list")
     @ResponseBody
     ApiResponse<EasyuiPageResult<User>> list(@RequestParam(required = false) String account,
                                              @RequestParam(required = false) Integer status,

@@ -3,9 +3,9 @@ package cn.dsliang.library.controller;
 import cn.dsliang.library.common.ApiResponse;
 import cn.dsliang.library.common.EasyuiPageResult;
 import cn.dsliang.library.entity.Rule;
-import cn.dsliang.library.entity.User;
 import cn.dsliang.library.enums.ResultEnum;
 import cn.dsliang.library.exception.BusinessException;
+import cn.dsliang.library.from.OptionForm;
 import cn.dsliang.library.service.RuleService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +13,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import static cn.dsliang.library.enums.ResultEnum.RULE_NOT_EXIST;
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 @RequestMapping("/api/system/rule")
@@ -47,7 +48,7 @@ public class RuleController {
         return ApiResponse.success();
     }
 
-    @GetMapping("/list")
+    @PostMapping("/list")
     @ResponseBody
     ApiResponse<EasyuiPageResult<Rule>> list(@RequestParam(required = false) String name,
                                              @RequestParam(required = false) Integer status,
@@ -63,6 +64,21 @@ public class RuleController {
     ApiResponse delete(@RequestParam(name = "ruleId", required = true) Integer id) {
         ruleService.deleteById(id);
         return ApiResponse.success();
+    }
+
+    @GetMapping("/option")
+    @ResponseBody
+    ApiResponse<List<OptionForm>> option() {
+        List<OptionForm> options = new ArrayList<>();
+        List<Rule> rules = ruleService.findAll();
+        for (Rule rule : rules) {
+            OptionForm option = new OptionForm();
+            option.setId(rule.getId());
+            option.setText(rule.getName());
+
+            options.add(option);
+        }
+        return ApiResponse.success(options);
     }
 
 }

@@ -17,13 +17,6 @@
     <script src="../../../js/system/param/rule.js"></script>
 
     <title>借阅规则</title>
-    <style>
-        ul li {
-            float: left;
-            margin-right: 20px;
-            list-style-type: none;
-        }
-    </style>
 </head>
 <body>
 
@@ -38,61 +31,84 @@
             <div data-options="region:'north',border:false">
                 <div class="search-bar">
                     <form>
-                        <ul>
-                            <li>
-                                <div class="search-item">
-                                    <label>规则名称:</label>
-                                    <input type="text" id="name"/>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="search-item">
-                                    <label>状态:</label>
-                                    <input class="easyui-radiobutton" data-options="labelPosition:'after'" name="status"
-                                           checked value="0" label="有效">
-                                    <input class="easyui-radiobutton" data-options="labelPosition:'after'" name="status"
-                                           value="1" label="停用">
-                                </div>
-                            </li>
-                            <li>
+                        <div class="search-item">
+                            <div>
+                                <label>规则名称:</label>
+                                <input type="text" id="name"/>
+                            </div>
+                            <div>
+                                <label>状态:</label>
+                                <input class="easyui-radiobutton" data-options="labelPosition:'after'" name="status"
+                                       checked value="0" label="有效">
+                                <input class="easyui-radiobutton" data-options="labelPosition:'after'" name="status"
+                                       value="1" label="停用">
+                            </div>
+                            <div>
                                 <a id="query-btn" href="javascript:void(0)" class="easyui-linkbutton"
                                    data-options="iconCls:'icon-search'">搜索</a>
-                            </li>
-                            <div style="clear:both;"></div>
-                        </ul>
+                            </div>
+                        </div>
                     </form>
                 </div>
             </div>
-            <div data-options="region:'center',border:false" style="padding: 10px">
-                <table id="dg" class="easyui-datagrid" toolbar="#tb"
-                       data-options="fitColumns:true,singleSelect:true,pagination:true,fit:true">
-                </table>
-                <div id="tb">
-                    <a id="add-rule-btn" href="#" class="easyui-linkbutton" iconCls="icon-add" plain="false">新增</a>
+            <div data-options="region:'center',border:false">
+                <div class="list">
+                    <table id="dg" class="easyui-datagrid" toolbar="#tb"
+                           data-options="fitColumns:true,singleSelect:true,pagination:true,fit:true">
+                    </table>
+                    <div id="tb">
+                        <a id="add-rule-btn" href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true">新增</a>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-<div id="dd" class="easyui-dialog user-dialog">
+<div id="dd" class="easyui-dialog edit-dialog">
     <form id="ff">
-        <div style="display:none">
-            <input class="easyui-textbox" name="id" data-options="">
-        </div>
-        <div>
-            <input class="easyui-textbox" label="规则名称" name="name" data-options="">
-            <input class="easyui-numberspinner" label="借阅册数" name="borrowNumber" data-options="">
-        </div>
-        <div>
-            <input class="easyui-numberspinner" label="借阅天数" name="borrowDays" data-options="">
-            <input class="easyui-numberspinner" label="续借次数" name="renewalTimes" data-options="">
-        </div>
-        <div>
-            <input class="easyui-numberspinner" label="续借天数" name="renewalDays" data-options="">
-            <select id="cc" class="easyui-combobox" label="状态" editable="false" name="status" style="width:160px;">
-                <option value="0">有效</option>
-                <option value="1">无效</option>
-            </select>
+        <div class="table">
+            <div class="table-row" style="display: none">
+                <div>
+                    <input class="easyui-textbox" name="id" data-options="">
+                </div>
+            </div>
+            <div class="table-row">
+                <div>
+                    <input class="easyui-textbox" label="规则名称" labelAlign="center" name="name" data-options=""
+                           style="width: 100%">
+                </div>
+                <div>
+                    <input class="easyui-numberspinner" label="借阅册数" labelAlign="center" name="borrowNumber"
+                           data-options=""
+                           style="width: 100%">
+                </div>
+            </div>
+            <div class="table-row">
+                <div>
+                    <input class="easyui-numberspinner" label="借阅天数" labelAlign="center" name="borrowDays"
+                           data-options=""
+                           style="width: 100%">
+                </div>
+                <div>
+                    <input class="easyui-numberspinner" label="续借次数" labelAlign="center" name="renewalTimes"
+                           data-options=""
+                           style="width: 100%">
+                </div>
+            </div>
+            <div class="table-row">
+                <div>
+                    <input class="easyui-numberspinner" label="续借天数" labelAlign="center" name="renewalDays"
+                           data-options=""
+                           style="width: 100%">
+                </div>
+                <div><select id="cc" class="easyui-combobox" label="状态" labelAlign="center" editable="false"
+                             name="status"
+                             style="width: 100%">
+                    <option value="0">有效</option>
+                    <option value="1">无效</option>
+                </select>
+                </div>
+            </div>
         </div>
     </form>
 </div>

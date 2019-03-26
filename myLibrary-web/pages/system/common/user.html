@@ -17,16 +17,8 @@
     <script src="../../../js/system/common/user.js"></script>
 
     <title>操作员管理</title>
-    <style>
-        ul li {
-            float: left;
-            margin-right: 20px;
-            list-style-type: none;
-        }
-    </style>
 </head>
 <body>
-
 <div class="easyui-layout" data-options="fit:true">
     <div data-options="region:'north',border:false">
         <div class="tab-guide">
@@ -38,88 +30,75 @@
             <div data-options="region:'north',border:false">
                 <div class="search-bar">
                     <form>
-                        <ul>
-                            <li>
-                                <div class="search-item">
-                                    <label>账号:</label>
-                                    <input type="text" id="account"/>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="search-item">
-                                    <label>状态:</label>
-                                    <input class="easyui-radiobutton" data-options="labelPosition:'after'" name="status"
-                                           checked value="0" label="有效">
-                                    <input class="easyui-radiobutton" data-options="labelPosition:'after'" name="status"
-                                           value="1" label="停用">
-                                </div>
-                            </li>
-                            <li>
+                        <div class="search-item">
+                            <div>
+                                <label>账号:</label>
+                                <input type="text" id="account"/>
+                            </div>
+                            <div>
+                                <label>状态:</label>
+                                <input class="easyui-radiobutton" data-options="labelPosition:'after'" name="status"
+                                       checked value="0" label="有效">
+                                <input class="easyui-radiobutton" data-options="labelPosition:'after'" name="status"
+                                       value="1" label="停用">
+                            </div>
+                            <div>
                                 <a id="query-btn" href="javascript:void(0)" class="easyui-linkbutton"
                                    data-options="iconCls:'icon-search'">搜索</a>
-                            </li>
-                            <div style="clear:both;"></div>
-                        </ul>
+                            </div>
+                        </div>
                     </form>
                 </div>
             </div>
-            <div data-options="region:'center',border:false" style="padding: 10px">
-                <table id="dg" class="easyui-datagrid" toolbar="#tb"
-                       data-options="fitColumns:true,singleSelect:true,pagination:true,fit:true">
-                </table>
-                <div id="tb">
-                    <a id="add-user-btn" href="#" class="easyui-linkbutton" iconCls="icon-add" plain="false">新增</a>
+            <div data-options="region:'center',border:false">
+                <div class="list">
+                    <table id="dg" class="easyui-datagrid" toolbar="#tb"
+                           data-options="fitColumns:true,singleSelect:true,pagination:true,fit:true">
+                    </table>
+                    <div id="tb">
+                        <a id="add-user-btn" href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true">新增</a>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
-<div id="dd" class="easyui-dialog user-dialog">
+<div id="dd" class="easyui-dialog edit-dialog">
     <form id="ff">
-        <div style="display:none">
-            <input class="easyui-textbox" name="id" data-options="">
+        <div class="table">
+            <div class="table-row" style="display: none">
+                <div>
+                    <input class="easyui-textbox" name="id" data-options="">
+                </div>
+            </div>
+            <div class="table-row">
+                <div>
+                    <input class="easyui-textbox" label="账号" labelAlign="center" name="account" data-options=""
+                           style="width: 100%"></div>
+                <div>
+                    <input class="easyui-textbox" label="密码" labelAlign="center" name="password" data-options=""
+                           style="width: 100%"></div>
+            </div>
+            <div class="table-row">
+                <div>
+                    <input class="easyui-textbox" label="姓名" labelAlign="center" name="name" data-options=""
+                           style="width: 100%"></div>
+                <div>
+                    <input class="easyui-textbox" label="email" labelAlign="center" name="email" data-options=""
+                           style="width: 100%"></div>
+            </div>
+            <div class="table-row">
+                <div>
+                    <select id="cc" class="easyui-combobox" label="状态" labelAlign="center" editable="false"
+                            name="status"
+                            style="width: 100%">
+                        <option value="0">有效</option>
+                        <option value="1">无效</option>
+                    </select>
+                </div>
+            </div>
         </div>
-        <div>
-            <input class="easyui-textbox" label="账号" name="account" data-options="">
-            <input class="easyui-textbox" label="密码" name="password" data-options="">
-        </div>
-        <div>
-            <input class="easyui-textbox" label="姓名" name="name" data-options="">
-            <input class="easyui-textbox" label="email" name="email" data-options="">
-        </div>
-        <div>
-            <select id="cc" class="easyui-combobox" label="状态" editable="false" name="status" style="width:160px;">
-                <option value="0">有效</option>
-                <option value="1">无效</option>
-            </select>
-        </div>
-        <!--<table height="100%" width="100%">-->
-        <!--<tr>-->
-        <!--<td>-->
-        <!--<input class="easyui-textbox" name="id" data-options="">-->
-        <!--</td>-->
-        <!--<td>-->
-
-        <!--</td>-->
-        <!--</tr>-->
-        <!--<tr>-->
-        <!--<td>-->
-        <!--<input class="easyui-textbox" name="account" data-options="" style="width:100%">-->
-        <!--</td>-->
-        <!--<td>-->
-        <!--<input class="easyui-textbox" label="密码" name="password" data-options="">-->
-        <!--</td>-->
-        <!--</tr>-->
-        <!--<tr>-->
-        <!--<td>-->
-        <!--<input class="easyui-textbox" label="姓名" name="name" data-options="">-->
-        <!--</td>-->
-        <!--<td>-->
-        <!--<input class="easyui-textbox" label="email" name="email" data-options="">-->
-        <!--</td>-->
-        <!--</tr>-->
-        <!--</table>-->
     </form>
 </div>
 </body>

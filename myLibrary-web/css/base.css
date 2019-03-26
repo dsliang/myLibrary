@@ -24,35 +24,55 @@ ul, li, a, span, p, div {
     zoom: 1;
 }
 
-.container {
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
+/*导航栏样式*/
+.tab-guide {
+    padding: 10px;
+}
+
+/*搜索栏样式*/
+.search-bar {
+    padding: 10px;
+    display: table;
+    table-layout: fixed;
+    width: 100%
+}
+
+.search-bar .search-item {
+    display: table-row;
+}
+
+.search-bar .search-item div {
+    display: table-cell;
+}
+
+/*检索结果列表样式*/
+.list {
+    padding: 10px;
+    width: 100%;
     height: 100%;
 }
 
-.tab-guide {
-    padding: 10px;
-    font-size: small;
+/*编辑对话框样式*/
+.edit-dialog {
+
 }
 
-.search-bar {
-    padding: 10px;
+.edit-dialog form {
+    padding: 15px;
 }
 
-.search-item {
-    /*float: left;*/
-    /*width: 250px;*/
+.edit-dialog .table {
+    display: table;
+    table-layout: fixed;
+    width: 100%
 }
 
-.search-item input {
-    /*width: 60%;*/
+.edit-dialog .table .table-row {
+    display: table-row;
 }
 
-.toolbar {
-    padding: 10px;
-}
-
-.data-table {
-
+.edit-dialog .table .table-row div {
+    display: table-cell;
+    padding-bottom: 10px;
 }
 

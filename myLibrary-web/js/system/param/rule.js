@@ -48,7 +48,7 @@ $(document).ready(function () {
         closed: true,
         resizable: false,
         width: 400,
-        height: 200,
+        height: 235,
         buttons: [{
             text: '保存',
             handler: function () {
@@ -70,7 +70,11 @@ $(document).ready(function () {
                 $('#ff').form('reset');
                 $('#dd').dialog({closed: true});
             }
-        }]
+        }],
+        onClose: function () {
+            $('#ff').form('reset');
+            $('#dd').dialog({closed: true});
+        }
     });
 
     $('#query-btn').bind('click', function () {

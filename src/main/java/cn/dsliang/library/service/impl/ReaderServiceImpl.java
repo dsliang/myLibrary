@@ -25,18 +25,21 @@ public class ReaderServiceImpl implements ReaderService {
     }
 
     @Override
-    public Page<Reader> list(String readerName, Integer status, Integer page, Integer size) {
+    public Page<Reader> list(String readerName, String readerCard, Integer status, Integer page, Integer size) {
         Reader reader = new Reader();
         reader.setName(readerName);
+        reader.setCard(readerCard);
         reader.setStatus(status);
+        reader.setGender(null);
 
         ExampleMatcher matcher = ExampleMatcher.matching()
                 .withMatcher("name", ExampleMatcher.GenericPropertyMatchers.contains())
+                .withMatcher("card", ExampleMatcher.GenericPropertyMatchers.contains())
                 .withMatcher("status", ExampleMatcher.GenericPropertyMatchers.exact());
         Example<Reader> example = Example.of(reader, matcher);
         Pageable pageable = new PageRequest(page, size);
 
-        return readerRepository.findAll(example,pageable);
+        return readerRepository.findAll(example, pageable);
     }
 
     @Override

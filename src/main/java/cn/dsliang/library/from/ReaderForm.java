@@ -1,11 +1,5 @@
 package cn.dsliang.library.from;
 
-import cn.dsliang.library.entity.Reader;
-import cn.dsliang.library.entity.ReaderType;
-
-import javax.persistence.*;
-import java.util.Date;
-
 public class ReaderForm {
     private Integer readerId;
 
@@ -15,9 +9,15 @@ public class ReaderForm {
 
     private Integer gender;
 
+    private String genderName;
+
     private Integer readerTypeId;
 
+    private String readerTypeName;
+
     private Integer status;
+
+    private String statusName;
 
     public Integer getReaderId() {
         return readerId;
@@ -51,6 +51,14 @@ public class ReaderForm {
         this.gender = gender;
     }
 
+    public String getGenderName() {
+        return genderName;
+    }
+
+    public void setGenderName(String genderName) {
+        this.genderName = genderName;
+    }
+
     public Integer getReaderTypeId() {
         return readerTypeId;
     }
@@ -59,11 +67,27 @@ public class ReaderForm {
         this.readerTypeId = readerTypeId;
     }
 
+    public String getReaderTypeName() {
+        return readerTypeName;
+    }
+
+    public void setReaderTypeName(String readerTypeName) {
+        this.readerTypeName = readerTypeName;
+    }
+
     public Integer getStatus() {
         return status;
     }
 
     public void setStatus(Integer status) {
         this.status = status;
+    }
+
+    public String getStatusName() {
+        return statusName;
+    }
+
+    public void setStatusName(String statusName) {
+        this.statusName = statusName;
     }
 }

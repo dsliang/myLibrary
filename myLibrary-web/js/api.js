@@ -19,11 +19,16 @@ var api = (function () {
             deleteRule: 'http://localhost/myLibrary/api/system/rule/delete',
             ruleOption: 'http://localhost/myLibrary/api/system/rule/option',
 
-            readerType:'http://localhost/myLibrary/api/system/readerType',
-            listReaderType:'http://localhost/myLibrary/api/system/readerType/list',
+            readerType: 'http://localhost/myLibrary/api/system/readerType',
+            listReaderType: 'http://localhost/myLibrary/api/system/readerType/list',
             saveReaderType: 'http://localhost/myLibrary/api/system/readerType/save',
-            deleteReaderType:'http://localhost/myLibrary/api/system/readerType/delete'
+            deleteReaderType: 'http://localhost/myLibrary/api/system/readerType/delete',
+            readerTypeOption: 'http://localhost/myLibrary/api/system/readerType/option',
 
+            reader: 'http://localhost/myLibrary/api/circulation/reader',
+            listReader: 'http://localhost/myLibrary/api/circulation/reader/list',
+            saveReader: 'http://localhost/myLibrary/api/circulation/reader/save',
+            deleteReader: 'http://localhost/myLibrary/api/circulation/reader/delete'
         }
     };
 })();

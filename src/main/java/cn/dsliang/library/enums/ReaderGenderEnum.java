@@ -13,6 +13,8 @@ public enum ReaderGenderEnum implements CodeEnum {
         this.message = message;
     }
 
+
+
     @Override
     public Integer getCode() {
         return code;

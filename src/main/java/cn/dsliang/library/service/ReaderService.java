@@ -8,7 +8,7 @@ public interface ReaderService {
 
     Reader findById(Integer id);
 
-    Page<Reader> list(String readerName, Integer status, Integer page, Integer size);
+    Page<Reader> list(String readerName, String readerCard, Integer status, Integer page, Integer size);
 
     void deleteById(Integer id);
 }

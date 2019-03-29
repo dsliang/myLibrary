@@ -2,7 +2,9 @@ package cn.dsliang.library.entity;
 
 import cn.dsliang.library.enums.ReaderGenderEnum;
 import cn.dsliang.library.enums.ReaderStatusEnum;
+import cn.dsliang.library.util.EnumUtil;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -103,5 +105,15 @@ public class Reader {
 
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
+    }
+
+    @JsonIgnore
+    public ReaderGenderEnum getGenderEnum() {
+       return EnumUtil.getByCode(gender, ReaderGenderEnum.class);
+    }
+
+    @JsonIgnore
+    public ReaderStatusEnum getStatusEnum() {
+        return EnumUtil.getByCode(status, ReaderStatusEnum.class);
     }
 }

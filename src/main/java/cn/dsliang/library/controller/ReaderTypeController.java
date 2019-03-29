@@ -6,6 +6,7 @@ import cn.dsliang.library.entity.ReaderType;
 import cn.dsliang.library.entity.Rule;
 import cn.dsliang.library.enums.ResultEnum;
 import cn.dsliang.library.exception.BusinessException;
+import cn.dsliang.library.from.OptionForm;
 import cn.dsliang.library.from.ReaderTypeForm;
 import cn.dsliang.library.service.ReaderTypeService;
 import cn.dsliang.library.service.RuleService;
@@ -88,6 +89,21 @@ public class ReaderTypeController {
         readerTypeService.deleteById(id);
 
         return ApiResponse.success();
+    }
+
+    @GetMapping("/option")
+    @ResponseBody
+    ApiResponse<List<OptionForm>> option() {
+        List<OptionForm> options = new ArrayList<>();
+        List<ReaderType> readerTypes = readerTypeService.findAll();
+        for (ReaderType readerType : readerTypes) {
+            OptionForm option = new OptionForm();
+            option.setId(readerType.getId());
+            option.setText(readerType.getName());
+
+            options.add(option);
+        }
+        return ApiResponse.success(options);
     }
 
     private void copyProperties(ReaderType type, ReaderTypeForm typeForm) {

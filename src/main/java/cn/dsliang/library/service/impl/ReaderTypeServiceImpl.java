@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ReaderTypeServiceImpl implements ReaderTypeService {
 
@@ -41,5 +43,10 @@ public class ReaderTypeServiceImpl implements ReaderTypeService {
     @Override
     public void deleteById(Integer id) {
         readerTypeRepository.delete(id);
+    }
+
+    @Override
+    public List<ReaderType> findAll() {
+        return readerTypeRepository.findAll();
     }
 }

@@ -8,6 +8,7 @@ import cn.dsliang.library.entity.Location;
 import cn.dsliang.library.enums.ResultEnum;
 import cn.dsliang.library.exception.BusinessException;
 import cn.dsliang.library.from.CollectionForm;
+import cn.dsliang.library.from.CollectionInfoForm;
 import cn.dsliang.library.service.BiblioService;
 import cn.dsliang.library.service.CollectionService;
 import cn.dsliang.library.service.LocationService;
@@ -33,14 +34,41 @@ public class CollectionController {
     @Autowired
     BiblioService biblioService;
 
+    @GetMapping("/info")
+    @ResponseBody
+    ApiResponse<CollectionInfoForm> getCollectionInfo(@RequestParam(name = "barcode", required = true) String barcode) {
+        CollectionInfoForm form = new CollectionInfoForm();
+        Collection collection = collectionService.findByBarcode(barcode);
+        if (collection == null)
+            throw new BusinessException(ResultEnum.COLLECTION_NOT_EXIST);
+
+        form.setCollectionId(collection.getId());
+        form.setTitle(collection.getBiblio().getTitle());
+        form.setAuthor(collection.getBiblio().getAuthor());
+        form.setCallNumber(collection.getCategoryNumber() + "/" + collection.getSerialNumber());
+        form.setPrice(collection.getBiblio().getPrice());
+        form.setPress(collection.getBiblio().getPress());
+
+        return ApiResponse.success(form);
+    }
+
     @GetMapping
     @ResponseBody
-    ApiResponse<Collection> findCollection(@RequestParam(name = "collectionId", required = true) Integer id) {
+    ApiResponse<CollectionForm> findCollection(@RequestParam(name = "collectionId", required = true) Integer id) {
+        CollectionForm form = new CollectionForm();
         Collection collection = collectionService.findById(id);
         if (collection == null)
             throw new BusinessException(ResultEnum.COLLECTION_NOT_EXIST);
 
-        return ApiResponse.success(collection);
+        BeanUtils.copyProperties(collection, form);
+        form.setCollectionId(collection.getId());
+        form.setBiblioId(collection.getBiblio().getId());
+        form.setLocationId(collection.getLocation().getId());
+        form.setLocationName(collection.getLocation().getName());
+        form.setStatusName(collection.getStatusEnum().getMessage());
+        form.setCallNumber(collection.getCategoryNumber() + "/" + collection.getSerialNumber());
+
+        return ApiResponse.success(form);
     }
 
     @PostMapping("/save")
@@ -64,12 +92,29 @@ public class CollectionController {
         collection.setId(collectionForm.getCollectionId());
         collection.setBiblio(biblio);
         collection.setLocation(location);
+        String[] s = collectionForm.getCallNumber().split("/");
+        if (s.length == 0 || s.length > 2)
+            throw new BusinessException(ResultEnum.CALL_NUMBER_FORMAT_ERROR);
+
+        Integer serial = null;
+        try {
+            serial = s.length == 1 ? null : Integer.valueOf(s[1]);
+        } catch (NumberFormatException e) {
+            throw new BusinessException(ResultEnum.CALL_NUMBER_FORMAT_ERROR);
+        }
+        collection.setSerialNumber(serial);
+        collection.setCategoryNumber(s[0]);
+
+        Collection c = collectionService.findByBarcode(collection.getBarcode());
+        if (c != null)
+            throw new BusinessException(ResultEnum.BARCODE_IS_EXIST);
+
         collectionService.save(collection);
 
         return ApiResponse.success();
     }
 
-    @GetMapping("/list")
+    @PostMapping("/list")
     @ResponseBody
     ApiResponse<EasyuiPageResult<CollectionForm>> list(
             @RequestParam(required = true) Integer biblioId,
@@ -84,6 +129,9 @@ public class CollectionController {
             form.setCollectionId(collection.getId());
             form.setBiblioId(collection.getBiblio().getId());
             form.setLocationId(collection.getLocation().getId());
+            form.setLocationName(collection.getLocation().getName());
+            form.setStatusName(collection.getStatusEnum().getMessage());
+            form.setCallNumber(collection.getCategoryNumber() + "/" + collection.getSerialNumber());
 
             forms.add(form);
         }
@@ -95,6 +143,7 @@ public class CollectionController {
     @ResponseBody
     ApiResponse delete(@RequestParam(name = "collectionId", required = true) Integer id) {
         collectionService.deleteById(id);
+
         return ApiResponse.success();
     }
 }

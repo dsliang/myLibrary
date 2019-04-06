@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class LocationServiceImpl implements LocationService {
 
@@ -21,6 +23,11 @@ public class LocationServiceImpl implements LocationService {
     @Override
     public Location findById(Integer id) {
         return locationRepository.findOne(id);
+    }
+
+    @Override
+    public Location findByName(String name) {
+        return locationRepository.findByName(name);
     }
 
     @Override
@@ -39,5 +46,10 @@ public class LocationServiceImpl implements LocationService {
     @Override
     public void deleteById(Integer id) {
         locationRepository.delete(id);
+    }
+
+    @Override
+    public List<Location> findAll() {
+        return locationRepository.findAll();
     }
 }

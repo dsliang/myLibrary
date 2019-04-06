@@ -17,7 +17,7 @@ public class Reader {
     @Column(name = "reader_id")
     private Integer id;
 
-    @Column(name = "reader_card")
+    @Column(name = "reader_card", unique = true, nullable = false)
     private String card;
 
     @Column(name = "reader_name")
@@ -109,7 +109,7 @@ public class Reader {
 
     @JsonIgnore
     public ReaderGenderEnum getGenderEnum() {
-       return EnumUtil.getByCode(gender, ReaderGenderEnum.class);
+        return EnumUtil.getByCode(gender, ReaderGenderEnum.class);
     }
 
     @JsonIgnore

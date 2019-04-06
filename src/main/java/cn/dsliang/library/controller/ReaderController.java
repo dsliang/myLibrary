@@ -2,13 +2,17 @@ package cn.dsliang.library.controller;
 
 import cn.dsliang.library.common.ApiResponse;
 import cn.dsliang.library.common.EasyuiPageResult;
+import cn.dsliang.library.entity.Circulating;
 import cn.dsliang.library.entity.Reader;
 import cn.dsliang.library.entity.ReaderType;
 import cn.dsliang.library.enums.ResultEnum;
 import cn.dsliang.library.exception.BusinessException;
 import cn.dsliang.library.from.ReaderForm;
+import cn.dsliang.library.from.ReaderInfoForm;
+import cn.dsliang.library.service.BorrowService;
 import cn.dsliang.library.service.ReaderService;
 import cn.dsliang.library.service.ReaderTypeService;
+import cn.dsliang.library.util.DateUtil;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -27,6 +31,42 @@ public class ReaderController {
 
     @Autowired
     private ReaderTypeService readerTypeService;
+
+    @Autowired
+    private BorrowService borrowService;
+
+    private Integer calculateExtendedNumber(List<Circulating> circulatings) {
+        Integer num = 0;
+        if (circulatings == null || circulatings.isEmpty())
+            return num;
+
+        for (Circulating circulating : circulatings) {
+            if (DateUtil.compareDate(DateUtil.getCurrentDate(), circulating.getReturnDate()) != -1)
+                num++;
+        }
+
+        return num;
+    }
+
+
+    @GetMapping("/info")
+    @ResponseBody
+    ApiResponse<ReaderInfoForm> getReaderInfo(@RequestParam(name = "card", required = true) String card) {
+        ReaderInfoForm form = new ReaderInfoForm();
+        Reader reader = readerService.findByCard(card);
+        if (reader == null)
+            throw new BusinessException(ResultEnum.READER_NOT_EXIST);
+        List<Circulating> circulatings = borrowService.getCirculating(reader.getId());
+
+        form.setReaderId(reader.getId());
+        form.setName(reader.getName());
+        form.setStatusName(reader.getStatusEnum().getMessage());
+        form.setBorrowNumber(reader.getReaderType().getRule().getBorrowNumber());
+        form.setBorrowedNumber(circulatings.size());
+        form.setExtendedNumber(calculateExtendedNumber(circulatings));
+
+        return ApiResponse.success(form);
+    }
 
     @GetMapping
     @ResponseBody
@@ -55,11 +95,17 @@ public class ReaderController {
             if (reader == null)
                 throw new BusinessException(ResultEnum.READER_NOT_EXIST);
         }
+
         BeanUtils.copyProperties(readerForm, reader);
         reader.setId(readerForm.getReaderId());
         reader.setCard(readerForm.getReaderCard());
         reader.setName(readerForm.getReaderName());
         reader.setReaderType(readerType);
+
+        Reader r = readerService.findByCard(reader.getCard());
+        if (r != null)
+            throw new BusinessException(ResultEnum.CARD_IS_EXIST);
+
         readerService.save(reader);
 
         return ApiResponse.success();
@@ -82,6 +128,7 @@ public class ReaderController {
 
             readerForms.add(form);
         }
+
         return ApiResponse.success(new EasyuiPageResult<ReaderForm>(collectionPage.getTotalElements(), readerForms));
     }
 
@@ -89,6 +136,7 @@ public class ReaderController {
     @ResponseBody
     ApiResponse delete(@RequestParam(name = "readerId", required = true) Integer id) {
         readerService.deleteById(id);
+
         return ApiResponse.success();
     }
 

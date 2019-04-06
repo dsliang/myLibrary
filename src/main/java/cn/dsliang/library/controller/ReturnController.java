@@ -2,8 +2,9 @@ package cn.dsliang.library.controller;
 
 import cn.dsliang.library.common.ApiResponse;
 import cn.dsliang.library.entity.Collection;
-import cn.dsliang.library.entity.Reader;
-import cn.dsliang.library.service.*;
+import cn.dsliang.library.enums.ResultEnum;
+import cn.dsliang.library.service.CollectionService;
+import cn.dsliang.library.service.ReturnService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,8 +27,10 @@ public class ReturnController {
     ApiResponse returns(@RequestParam(required = true) Integer collectionId) {
         Collection collection = collectionService.findById(collectionId);
         if (collection == null)
-            return ApiResponse.error("馆藏不存在");
+            return ApiResponse.error(ResultEnum.COLLECTION_NOT_EXIST.getMessage());
+
         returnService.returns(collection);
+
         return ApiResponse.success();
     }
 }

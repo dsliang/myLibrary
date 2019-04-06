@@ -11,6 +11,8 @@ public interface RuleService {
 
     Rule findById(Integer id);
 
+    Rule findByName(String name);
+
     Page<Rule> list(String name, Integer status, Integer page, Integer size);
 
     void deleteById(Integer id);

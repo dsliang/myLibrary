@@ -1,7 +1,6 @@
 package cn.dsliang.library.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import org.hibernate.annotations.Columns;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -14,7 +13,7 @@ public class Location {
     @Column(name = "location_id")
     private Integer id;
 
-    @Column(name = "location_name")
+    @Column(name = "location_name", unique = true, nullable = false)
     private String name;
 
     @Column(name = "comment")

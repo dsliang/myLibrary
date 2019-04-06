@@ -26,6 +26,11 @@ public class RuleServiceImpl implements RuleService {
     }
 
     @Override
+    public Rule findByName(String name) {
+        return ruleRepository.findByName(name);
+    }
+
+    @Override
     public Page<Rule> list(String name, Integer status, Integer page, Integer size) {
         Rule rule = new Rule();
         rule.setName(name);

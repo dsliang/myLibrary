@@ -10,6 +10,8 @@ public interface ReaderTypeService {
 
     ReaderType findById(Integer id);
 
+    ReaderType findByName(String name);
+
     Page<ReaderType> list(String readerTypeName, Integer status, Integer page, Integer size);
 
     void deleteById(Integer id);

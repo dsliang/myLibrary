@@ -14,8 +14,8 @@ $(document).ready(function () {
                     return;
                 $('#ff').form('load', data.data);
                 $('#dd').dialog({closed: false});
-            }, 'json');
-        }, 'json');
+            }, 'json', false);
+        }, 'json', false);
     };
 
     deleteReaderType = function (id) {
@@ -24,7 +24,7 @@ $(document).ready(function () {
                 return;
 
             $('#dg').datagrid('load');
-        }, 'json')
+        }, 'json', false)
     };
 
     function rowOperation(id, rowData, rowIndex) {
@@ -69,7 +69,7 @@ $(document).ready(function () {
                     $('#ff').form('reset');
                     $('#dd').dialog({closed: true});
                     $('#dg').datagrid('load');
-                }, 'json');
+                }, 'json', false);
             }
         }, {
             text: '取消',
@@ -98,7 +98,7 @@ $(document).ready(function () {
                 textField: 'text',
                 data: data.data
             })
-        }, 'json');
+        }, 'json', false);
         $('#dd').dialog({closed: false});
     });
 });

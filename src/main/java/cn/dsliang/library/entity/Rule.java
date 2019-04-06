@@ -16,7 +16,7 @@ public class Rule {
     @Column(name = "rule_id")
     private Integer id;
 
-    @Column(name = "rule_name")
+    @Column(name = "rule_name", unique = true, nullable = false)
     private String name;
 
     @Column(name = "borrow_number")

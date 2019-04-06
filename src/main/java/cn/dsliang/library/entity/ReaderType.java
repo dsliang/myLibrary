@@ -14,7 +14,7 @@ public class ReaderType {
     @Column(name = "reader_type_id")
     private Integer id;
 
-    @Column(name = "reader_type_name")
+    @Column(name = "reader_type_name", unique = true, nullable = false)
     private String name;
 
     @ManyToOne

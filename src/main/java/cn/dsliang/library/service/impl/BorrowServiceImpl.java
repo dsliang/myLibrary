@@ -4,12 +4,16 @@ import cn.dsliang.library.entity.*;
 import cn.dsliang.library.enums.CollectionStatusEnum;
 import cn.dsliang.library.enums.ResultEnum;
 import cn.dsliang.library.exception.BusinessException;
+import cn.dsliang.library.repository.BorrowRepository;
 import cn.dsliang.library.repository.CirculatingRepository;
 import cn.dsliang.library.repository.CirculationRecordRepository;
-import cn.dsliang.library.repository.BorrowRepository;
+import cn.dsliang.library.repository.CollectionRepository;
 import cn.dsliang.library.service.BorrowService;
 import cn.dsliang.library.util.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,6 +32,9 @@ public class BorrowServiceImpl implements BorrowService {
     @Autowired
     private CirculatingRepository circulatingRepository;
 
+    @Autowired
+    private CollectionRepository collectionRepository;
+
     @Override
     @Transactional
     public void borrow(Reader reader, Collection collection) {
@@ -38,14 +45,13 @@ public class BorrowServiceImpl implements BorrowService {
             throw new BusinessException(ResultEnum.UP_TO_BORROW_LIMIT);
         }
 
-        //2.图书状态,是否能外借
-//        if (collection.getStatusEnum() != CollectionStatusEnum.NORMAL) {
-//            throw new BusinessException(ResultEnum.COLLECTION_STATUS_ERROR);
-//        }
+        //2.图书状态,是否能借阅
+        if (collection.getStatusEnum() != CollectionStatusEnum.NORMAL) {
+            throw new BusinessException(ResultEnum.COLLECTION_IS_LENT_OUT);
+        }
 
         //3.修改图书状态
         collection.setStatus(CollectionStatusEnum.BORROWED.getCode());
-
 
         Date returnDate = DateUtil.addDay(DateUtil.getCurrentDate(), reader.getReaderType().getRule().getBorrowDays());
         Date borrowDate = DateUtil.getCurrentDate();
@@ -60,11 +66,10 @@ public class BorrowServiceImpl implements BorrowService {
         circulationRecord.setTitle(collection.getBiblio().getTitle());
         circulationRecord.setAuthor(collection.getBiblio().getAuthor());
         circulationRecord.setPress(collection.getBiblio().getPress());
-        circulationRecord.setBorrowDate(borrowDate);
-        circulationRecord.setReturnDate(returnDate);
+        circulationRecord.setBorrowDate(null);
+        circulationRecord.setReturnDate(null);
         circulationRecord.setReturnedDate(null);
-        //TODO: 2019/2/11 图书借出状态
-        //circulationRecord.setStatus();
+        circulationRecord.setStatus(null);
 
         //4.往借阅记录表插入一条新记录
         Borrow borrow = new Borrow();
@@ -75,15 +80,27 @@ public class BorrowServiceImpl implements BorrowService {
         //5.往图书流通(实时)表插入一条新记录
         Circulating circulating = new Circulating();
         circulating.setReader(reader);
-        circulating.setCirculationRecord(circulationRecord);
         circulating.setCollection(collection);
         circulating.setBiblio(collection.getBiblio());
         circulating.setBorrowDate(borrowDate);
         circulating.setReturnDate(returnDate);
         circulating.setRenewalTimes(0);
+        circulating.setCirculationRecord(circulationRecord);
 
+        collectionRepository.save(collection);
         circulationRecordRepository.save(circulationRecord);
         borrowRepository.save(borrow);
         circulatingRepository.save(circulating);
+    }
+
+    @Override
+    public List<Circulating> getCirculating(Integer readerId) {
+        return circulatingRepository.findByReaderId(readerId);
+    }
+
+    @Override
+    public Page<Circulating> getCirculating(Integer readerId, Integer page, Integer size) {
+        Pageable pageable = new PageRequest(page, size);
+        return circulatingRepository.findByReaderId(readerId, pageable);
     }
 }

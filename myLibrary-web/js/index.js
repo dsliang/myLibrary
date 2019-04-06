@@ -1,5 +1,6 @@
-$(document).ready(function () {
+var _userInfo;
 
+$(document).ready(function () {
     /*
      * 刷新tabs
      * **/
@@ -94,4 +95,15 @@ $(document).ready(function () {
             }
         )
     })
+
+    /**
+     * 是否登录
+     */
+    ajax.get(api.url.auth, null, function (data) {
+        if (data.code != api.code.OK)
+            return;
+
+        _userInfo = data.data;
+        $('#user-name').text(_userInfo.name);
+    }, 'json', false);
 })

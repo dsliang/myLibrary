@@ -6,29 +6,36 @@ var ajax = (function () {
         if (data.code == 0)
             return;
         if (data.code == api.code.UNAUTHORIZED) {
-            alert("错误处理(2)" + data.msg);
-            // window.location.replace("/login.html");
+            // alert("错误处理(2)" + data.msg);
+            window.location.replace("/login.html");
         } else {
-            alert("错误处理(else)" + data.msg);
+            $.messager.show({
+                title: '提示',
+                msg: data.msg,
+                timeout: 5000,
+                showType: 'slide'
+            });
         }
     }
 
-    function _get(url, data, success, dataType) {
+    function _get(url, data, success, dataType, async) {
         $.ajax({
             url: url,
             data: data,
+            async: async,
             dataType: dataType,
             success: success,
             complete: _completeHandler
         });
     }
 
-    function _post(url, data, success, dataType) {
+    function _post(url, data, success, dataType, async) {
         $.ajax({
             url: url,
             data: data,
             type: "POST",
             contentType: 'application/json;charset=utf-8',
+            async: async,
             dataType: dataType,
             success: success,
             complete: _completeHandler
@@ -64,12 +71,22 @@ var util = function () {
         return jsonString;
     }
 
+    function _isEmpty(obj) {
+        if (typeof obj == "undefined" || obj == null || obj == "") {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     return {
         form: {
             serializeObject: _serializeObject,
             serializeJosnString: _serializeJosnString
+        },
+        string: {
+            isEmpty: _isEmpty
         }
-
     }
 }();
 

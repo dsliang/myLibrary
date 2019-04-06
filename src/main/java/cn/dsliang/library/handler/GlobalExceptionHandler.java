@@ -1,6 +1,7 @@
 package cn.dsliang.library.handler;
 
 import cn.dsliang.library.common.ApiResponse;
+import cn.dsliang.library.enums.ApiResponseEnum;
 import cn.dsliang.library.exception.BusinessException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -13,13 +14,13 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(Exception.class)
     ApiResponse handleException(Exception e) {
         e.printStackTrace();
-        return ApiResponse.error(1, e.getMessage());
+        return ApiResponse.error(ApiResponseEnum.ERROR.getCode(), e.getMessage());
     }
 
     @ResponseBody
     @ExceptionHandler(BusinessException.class)
     ApiResponse handleBusinessException(BusinessException e) {
         e.printStackTrace();
-        return ApiResponse.error(1, e.getMessage());
+        return ApiResponse.error(ApiResponseEnum.ERROR.getCode(), e.getMessage());
     }
 }

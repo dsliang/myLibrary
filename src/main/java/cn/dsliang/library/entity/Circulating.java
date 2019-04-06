@@ -30,7 +30,6 @@ public class Circulating {
     @Column(name = "borrow_date", columnDefinition = "date")
     private Date borrowDate;
 
-
     @Column(name = "return_date", columnDefinition = "date")
     private Date returnDate;
 

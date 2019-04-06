@@ -9,6 +9,8 @@ public interface UserService {
 
     User findById(Integer id);
 
+    User findByAccount(String account);
+
     Page<User> list(String account, Integer status, Integer page, Integer size);
 
     void deleteById(Integer id);

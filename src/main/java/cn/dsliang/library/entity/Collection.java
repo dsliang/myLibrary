@@ -24,7 +24,7 @@ public class Collection {
     @JoinColumn(name = "location_id")
     private Location location;
 
-    @Column(name = "barcode", unique = true)
+    @Column(name = "barcode", unique = true, nullable = false)
     private String barcode;
 
     @Column(name = "category_number")

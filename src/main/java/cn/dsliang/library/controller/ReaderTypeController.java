@@ -58,6 +58,11 @@ public class ReaderTypeController {
         readerType.setId(readerTypeForm.getReaderTypeId());
         readerType.setName(readerTypeForm.getReaderTypeName());
         readerType.setRule(rule);
+
+        ReaderType r = readerTypeService.findByName(readerType.getName());
+        if (r != null)
+            throw new BusinessException(ResultEnum.READER_TYPE_IS_EXIST);
+
         readerTypeService.save(readerType);
 
         return ApiResponse.success();
@@ -103,6 +108,7 @@ public class ReaderTypeController {
 
             options.add(option);
         }
+
         return ApiResponse.success(options);
     }
 

@@ -26,6 +26,11 @@ public class ReaderTypeServiceImpl implements ReaderTypeService {
     }
 
     @Override
+    public ReaderType findByName(String name) {
+        return readerTypeRepository.findByName(name);
+    }
+
+    @Override
     public Page<ReaderType> list(String readerTypeName, Integer status, Integer page, Integer size) {
         ReaderType readerType = new ReaderType();
         readerType.setName(readerTypeName);

@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="utf-8">
     <meta name="renderer" content="webkit">
@@ -48,9 +47,9 @@
         </ul>
     </div>
     <div class="right-pane">
-        <div class="user-name"><span>用户名</span></div>
-        <div class="help"><a href="">帮助</a></div>
-        <div class="logout"><span>退出</span></div>
+        <div class="user-name"><span id="user-name">用户名</span></div>
+        <div class="help"><span id="helper">帮助</span></div>
+        <div class="logout"><a id="logout" style=" cursor: pointer;">退出</a></div>
     </div>
 </div>
 <div data-options="region:'west',title:'侧边栏'" style="width:160px;">
@@ -58,23 +57,26 @@
         <div title="图书建库" data-options="iconCls:'icon-application-cascade'" style="padding:5px;">
             <ul class="easyui-tree side-tree">
                 <li iconCls="icon-chart-organisation"><a href="javascript:void(0)" data-icon="icon-chart-organisation"
-                                                         data-link="pages/bianmu/tsjku/tsbmu.html" iframe="1">图书编目</a>
+                                                         data-link="pages/catalog/biblio/biblioManagement.html"
+                                                         iframe="1">图书编目</a>
                 </li>
             </ul>
         </div>
     </div>
     <div class="easyui-accordion frist-menu" data-options="border:false,fit:true" data-title="流通">
-        <div title="图书管理" data-options="iconCls:'icon-application-cascade'" style="padding:5px;">
+        <div title="借阅管理" data-options="iconCls:'icon-application-cascade'" style="padding:5px;">
             <ul class="easyui-tree side-tree">
                 <li iconCls="icon-chart-organisation"><a href="javascript:void(0)" data-icon="icon-chart-organisation"
-                                                         data-link="pages/bianmu/tsjku/tsbmu.html" iframe="1">图书管理</a>
+                                                         data-link="pages/circulation/circulation/borrowManagement.html"
+                                                         iframe="1">图书借阅</a>
                 </li>
             </ul>
         </div>
         <div title="读者管理" data-options="iconCls:'icon-application-cascade'" style="padding:5px;">
             <ul class="easyui-tree side-tree">
                 <li iconCls="icon-chart-organisation"><a href="javascript:void(0)" data-icon="icon-chart-organisation"
-                                                         data-link="pages/circulation/reader/readerManagement.html" iframe="1">读者管理</a>
+                                                         data-link="pages/circulation/reader/readerManagement.html"
+                                                         iframe="1">读者管理</a>
                 </li>
             </ul>
         </div>
@@ -95,6 +97,10 @@
                 </li>
                 <li iconCls="icon-chart-organisation"><a href="javascript:void(0)" data-icon="icon-chart-organisation"
                                                          data-link="pages/system/param/rule.html" iframe="1">借阅规则</a>
+                </li>
+                <li iconCls="icon-chart-organisation"><a href="javascript:void(0)" data-icon="icon-chart-organisation"
+                                                         data-link="pages/system/param/location.html"
+                                                         iframe="1">馆藏地址</a>
                 </li>
             </ul>
         </div>

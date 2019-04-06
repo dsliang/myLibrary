@@ -8,6 +8,8 @@ public interface ReaderService {
 
     Reader findById(Integer id);
 
+    Reader findByCard(String barcode);
+
     Page<Reader> list(String readerName, String readerCard, Integer status, Integer page, Integer size);
 
     void deleteById(Integer id);

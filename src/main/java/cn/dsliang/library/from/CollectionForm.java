@@ -1,11 +1,5 @@
 package cn.dsliang.library.from;
 
-import cn.dsliang.library.entity.Biblio;
-import cn.dsliang.library.entity.Location;
-
-import javax.persistence.*;
-import java.util.Date;
-
 public class CollectionForm {
     private Integer collectionId;
 
@@ -13,13 +7,15 @@ public class CollectionForm {
 
     private Integer locationId;
 
+    private String locationName;
+
     private String barcode;
 
-    private String categoryNumber;
-
-    private Integer serialNumber;
+    private String callNumber;
 
     private Integer status;
+
+    private String statusName;
 
     public Integer getCollectionId() {
         return collectionId;
@@ -45,6 +41,14 @@ public class CollectionForm {
         this.locationId = locationId;
     }
 
+    public String getLocationName() {
+        return locationName;
+    }
+
+    public void setLocationName(String locationName) {
+        this.locationName = locationName;
+    }
+
     public String getBarcode() {
         return barcode;
     }
@@ -53,20 +57,12 @@ public class CollectionForm {
         this.barcode = barcode;
     }
 
-    public String getCategoryNumber() {
-        return categoryNumber;
+    public String getCallNumber() {
+        return callNumber;
     }
 
-    public void setCategoryNumber(String categoryNumber) {
-        this.categoryNumber = categoryNumber;
-    }
-
-    public Integer getSerialNumber() {
-        return serialNumber;
-    }
-
-    public void setSerialNumber(Integer serialNumber) {
-        this.serialNumber = serialNumber;
+    public void setCallNumber(String callNumber) {
+        this.callNumber = callNumber;
     }
 
     public Integer getStatus() {
@@ -75,5 +71,13 @@ public class CollectionForm {
 
     public void setStatus(Integer status) {
         this.status = status;
+    }
+
+    public String getStatusName() {
+        return statusName;
+    }
+
+    public void setStatusName(String statusName) {
+        this.statusName = statusName;
     }
 }

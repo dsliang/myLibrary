@@ -16,7 +16,7 @@ public class User {
     @Column(name = "user_id")
     Integer id;
 
-    @Column(name = "user_account", updatable = false)
+    @Column(name = "user_account", unique = true, nullable = false, updatable = false)
     String account;
 
     @Column(name = "user_name")

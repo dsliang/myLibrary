@@ -9,6 +9,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class CollectionServiceImpl implements CollectionService {
 
@@ -17,6 +19,18 @@ public class CollectionServiceImpl implements CollectionService {
 
     @Override
     public Collection save(Collection collection) {
+        //生成种次号
+        if (collection.getSerialNumber() == null) {
+            Integer serial = 0;
+            List<Collection> collections =
+                    collectionRepository.findByCategoryNumber(collection.getCategoryNumber());
+            for (Collection c : collections) {
+                serial = Integer.max(serial, c.getSerialNumber());
+            }
+
+            serial++;
+            collection.setSerialNumber(serial);
+        }
         return collectionRepository.save(collection);
     }
 

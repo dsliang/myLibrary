@@ -43,6 +43,11 @@ public class RuleController {
                 throw new BusinessException(ResultEnum.RULE_NOT_EXIST);
         }
         BeanUtils.copyProperties(rule, rawRule);
+
+        Rule r = ruleService.findByName(rule.getName());
+        if (r != null)
+            throw new BusinessException(ResultEnum.RULE_IS_EXIST);
+
         ruleService.save(rawRule);
 
         return ApiResponse.success();
@@ -63,6 +68,7 @@ public class RuleController {
     @ResponseBody
     ApiResponse delete(@RequestParam(name = "ruleId", required = true) Integer id) {
         ruleService.deleteById(id);
+
         return ApiResponse.success();
     }
 
@@ -78,6 +84,7 @@ public class RuleController {
 
             options.add(option);
         }
+
         return ApiResponse.success(options);
     }
 

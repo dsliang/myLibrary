@@ -31,15 +31,18 @@ public class RenewServiceImpl implements RenewService {
     public void renew(Collection collection) {
 
         Circulating circulating = circulatingRepository.findByCollectionId(collection.getId());
-        Reader reader = readerRepository.findOne(circulating.getReader().getId());
+        if (circulating == null)
+            throw new BusinessException(ResultEnum.CIRCULATING_NOT_EXIST);
+
+        Rule rule = circulating.getReader().getReaderType().getRule();
 
         //1.检查续借次数
-        if (circulating.getRenewalTimes() >= reader.getReaderType().getRule().getRenewalTimes()) {
+        if (circulating.getRenewalTimes() >= rule.getRenewalTimes()) {
             throw new BusinessException(ResultEnum.UP_TO_RENEW_LIMIT);
         }
 
         //2.更新图书流通(实时)表应还日期和续借次数
-        Date returnDate = DateUtil.addDay(circulating.getReturnDate(), reader.getReaderType().getRule().getRenewalDays());
+        Date returnDate = DateUtil.addDay(circulating.getReturnDate(), rule.getRenewalDays());
         circulating.setReturnDate(returnDate);
         Integer renewalTimes = circulating.getRenewalTimes();
         renewalTimes++;
@@ -48,7 +51,9 @@ public class RenewServiceImpl implements RenewService {
         //3.往“续借记录表”插入一条新记录
         Renew renew = new Renew();
         renew.setCirculationRecord(circulating.getCirculationRecord());
-        renew.setRenewalDays(reader.getReaderType().getRule().getRenewalDays());
+        renew.setRenewalDays(rule.getRenewalDays());
+
+        circulatingRepository.save(circulating);
         renewRepository.save(renew);
     }
 }

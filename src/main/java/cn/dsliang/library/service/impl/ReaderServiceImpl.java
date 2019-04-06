@@ -25,6 +25,11 @@ public class ReaderServiceImpl implements ReaderService {
     }
 
     @Override
+    public Reader findByCard(String card) {
+        return readerRepository.findByCard(card);
+    }
+
+    @Override
     public Page<Reader> list(String readerName, String readerCard, Integer status, Integer page, Integer size) {
         Reader reader = new Reader();
         reader.setName(readerName);

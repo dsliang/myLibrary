@@ -61,17 +61,17 @@ ul, li, a, span, p, div {
     padding: 15px;
 }
 
-.edit-dialog .table {
+.table {
     display: table;
     table-layout: fixed;
     width: 100%
 }
 
-.edit-dialog .table .table-row {
+.table .table-row {
     display: table-row;
 }
 
-.edit-dialog .table .table-row div {
+.table .table-row div {
     display: table-cell;
     padding-bottom: 10px;
 }

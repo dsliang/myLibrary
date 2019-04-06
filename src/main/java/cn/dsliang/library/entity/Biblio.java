@@ -1,11 +1,11 @@
 package cn.dsliang.library.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "t_biblio")
@@ -23,6 +23,9 @@ public class Biblio {
 
     @Column(name = "author")
     private String author;
+
+    @OneToMany(fetch = FetchType.EAGER,mappedBy = "biblio")
+    private List<Collection> collections;
 
     @Column(name = "press")
     private String press;
@@ -82,6 +85,14 @@ public class Biblio {
 
     public void setAuthor(String author) {
         this.author = author;
+    }
+
+    public List<Collection> getCollections() {
+        return collections;
+    }
+
+    public void setCollections(List<Collection> collections) {
+        this.collections = collections;
     }
 
     public String getPress() {

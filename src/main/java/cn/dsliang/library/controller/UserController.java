@@ -37,13 +37,13 @@ public class UserController {
             rawUser = userService.findById(user.getId());
             if (rawUser == null)
                 throw new BusinessException(ResultEnum.USER_NOT_EXIST);
+        }else {
+            User u = userService.findByAccount(user.getAccount());
+            if (u != null)
+                throw new BusinessException(ResultEnum.USER_IS_EXIST);
         }
 
         BeanUtils.copyProperties(user, rawUser);
-
-        User u = userService.findByAccount(user.getAccount());
-        if (u != null)
-            throw new BusinessException(ResultEnum.USER_IS_EXIST);
 
         userService.save(rawUser);
 
@@ -57,7 +57,7 @@ public class UserController {
                                              @RequestParam(defaultValue = "1") Integer page,
                                              @RequestParam(name = "rows", defaultValue = "10") Integer size) {
         Page<User> userPage = userService.list(account, status, page - 1, size);
-        
+
         return ApiResponse.success(
                 new EasyuiPageResult<User>(userPage.getTotalElements(), userPage.getContent()));
     }

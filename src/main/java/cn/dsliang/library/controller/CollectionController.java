@@ -87,6 +87,11 @@ public class CollectionController {
             collection = collectionService.findById(collectionForm.getCollectionId());
             if (collection == null)
                 throw new BusinessException(ResultEnum.COLLECTION_NOT_EXIST);
+        }else {
+            Collection c = collectionService.findByBarcode(collection.getBarcode());
+            if (c != null)
+                throw new BusinessException(ResultEnum.BARCODE_IS_EXIST);
+
         }
         BeanUtils.copyProperties(collectionForm, collection);
         collection.setId(collectionForm.getCollectionId());
@@ -104,10 +109,6 @@ public class CollectionController {
         }
         collection.setSerialNumber(serial);
         collection.setCategoryNumber(s[0]);
-
-        Collection c = collectionService.findByBarcode(collection.getBarcode());
-        if (c != null)
-            throw new BusinessException(ResultEnum.BARCODE_IS_EXIST);
 
         collectionService.save(collection);
 

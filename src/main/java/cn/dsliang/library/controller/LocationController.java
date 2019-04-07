@@ -41,13 +41,14 @@ public class LocationController {
             rawLocation = locationService.findById(location.getId());
             if (rawLocation == null)
                 throw new BusinessException(ResultEnum.LOCATION_NOT_EXIST);
+        } else {
+            Location l = locationService.findByName(location.getName());
+            if (l != null)
+                throw new BusinessException(ResultEnum.LOCATION_IS_EXIST);
         }
 
         BeanUtils.copyProperties(location, rawLocation);
 
-        Location l = locationService.findByName(location.getName());
-        if (l != null)
-            throw new BusinessException(ResultEnum.LOCATION_IS_EXIST);
 
         locationService.save(rawLocation);
 

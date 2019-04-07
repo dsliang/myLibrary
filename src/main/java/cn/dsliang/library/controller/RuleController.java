@@ -41,12 +41,14 @@ public class RuleController {
             rawRule = ruleService.findById(rule.getId());
             if (rawRule == null)
                 throw new BusinessException(ResultEnum.RULE_NOT_EXIST);
+        }else {
+            Rule r = ruleService.findByName(rule.getName());
+            if (r != null)
+                throw new BusinessException(ResultEnum.RULE_IS_EXIST);
         }
+
         BeanUtils.copyProperties(rule, rawRule);
 
-        Rule r = ruleService.findByName(rule.getName());
-        if (r != null)
-            throw new BusinessException(ResultEnum.RULE_IS_EXIST);
 
         ruleService.save(rawRule);
 

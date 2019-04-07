@@ -94,6 +94,10 @@ public class ReaderController {
             reader = readerService.findById(readerForm.getReaderId());
             if (reader == null)
                 throw new BusinessException(ResultEnum.READER_NOT_EXIST);
+        }else {
+            Reader r = readerService.findByCard(reader.getCard());
+            if (r != null)
+                throw new BusinessException(ResultEnum.CARD_IS_EXIST);
         }
 
         BeanUtils.copyProperties(readerForm, reader);
@@ -101,10 +105,6 @@ public class ReaderController {
         reader.setCard(readerForm.getReaderCard());
         reader.setName(readerForm.getReaderName());
         reader.setReaderType(readerType);
-
-        Reader r = readerService.findByCard(reader.getCard());
-        if (r != null)
-            throw new BusinessException(ResultEnum.CARD_IS_EXIST);
 
         readerService.save(reader);
 

@@ -5,12 +5,16 @@ import cn.dsliang.library.common.EasyuiPageResult;
 import cn.dsliang.library.entity.User;
 import cn.dsliang.library.enums.ResultEnum;
 import cn.dsliang.library.exception.BusinessException;
+import cn.dsliang.library.from.UserForm;
 import cn.dsliang.library.service.UserService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 @RequestMapping("/api/system/user")
@@ -21,29 +25,33 @@ public class UserController {
 
     @GetMapping
     @ResponseBody
-    ApiResponse<User> findUser(@RequestParam(name = "userId", required = true) Integer id) {
+    ApiResponse<UserForm> findUser(@RequestParam(name = "userId", required = true) Integer id) {
+        UserForm form = new UserForm();
         User user = userService.findById(id);
         if (user == null)
             throw new BusinessException(ResultEnum.USER_NOT_EXIST);
 
-        return ApiResponse.success(user);
+        BeanUtils.copyProperties(user, form);
+        form.setStatusName(user.getStatusEnum().getMessage());
+
+        return ApiResponse.success(form);
     }
 
     @PostMapping("/save")
     @ResponseBody
-    ApiResponse save(@RequestBody User user) {
+    ApiResponse save(@RequestBody UserForm form) {
         User rawUser = new User();
-        if (user.getId() != null) {
-            rawUser = userService.findById(user.getId());
+        if (form.getId() != null) {
+            rawUser = userService.findById(form.getId());
             if (rawUser == null)
                 throw new BusinessException(ResultEnum.USER_NOT_EXIST);
-        }else {
-            User u = userService.findByAccount(user.getAccount());
+        } else {
+            User u = userService.findByAccount(form.getAccount());
             if (u != null)
                 throw new BusinessException(ResultEnum.USER_IS_EXIST);
         }
 
-        BeanUtils.copyProperties(user, rawUser);
+        BeanUtils.copyProperties(form, rawUser);
 
         userService.save(rawUser);
 
@@ -52,14 +60,22 @@ public class UserController {
 
     @PostMapping("/list")
     @ResponseBody
-    ApiResponse<EasyuiPageResult<User>> list(@RequestParam(required = false) String account,
-                                             @RequestParam(required = false) Integer status,
-                                             @RequestParam(defaultValue = "1") Integer page,
-                                             @RequestParam(name = "rows", defaultValue = "10") Integer size) {
+    ApiResponse<EasyuiPageResult<UserForm>> list(@RequestParam(required = false) String account,
+                                                 @RequestParam(required = false) Integer status,
+                                                 @RequestParam(defaultValue = "1") Integer page,
+                                                 @RequestParam(name = "rows", defaultValue = "10") Integer size) {
+        List<UserForm> forms = new ArrayList<>();
         Page<User> userPage = userService.list(account, status, page - 1, size);
+        for (User user : userPage.getContent()) {
+            UserForm form = new UserForm();
+            BeanUtils.copyProperties(user, form);
+            form.setStatusName(user.getStatusEnum().getMessage());
+
+            forms.add(form);
+        }
 
         return ApiResponse.success(
-                new EasyuiPageResult<User>(userPage.getTotalElements(), userPage.getContent()));
+                new EasyuiPageResult<UserForm>(userPage.getTotalElements(), forms));
     }
 
     @GetMapping("/delete")

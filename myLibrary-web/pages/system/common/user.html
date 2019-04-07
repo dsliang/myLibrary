@@ -65,7 +65,7 @@
 </div>
 
 <div id="dd" class="easyui-dialog edit-dialog">
-    <form id="ff">
+    <form id="ff" class="easyui-form" data-options="novalidate:true">
         <div class="table">
             <div class="table-row" style="display: none">
                 <div>
@@ -74,24 +74,28 @@
             </div>
             <div class="table-row">
                 <div>
-                    <input class="easyui-textbox" label="账号" labelAlign="center" name="account" data-options=""
+                    <input class="easyui-textbox" label="账号" labelAlign="center" name="account"
+                           data-options="required:true"
                            style="width: 100%"></div>
                 <div>
-                    <input class="easyui-textbox" label="密码" labelAlign="center" name="password" data-options=""
-                           style="width: 100%"></div>
-            </div>
-            <div class="table-row">
-                <div>
-                    <input class="easyui-textbox" label="姓名" labelAlign="center" name="name" data-options=""
-                           style="width: 100%"></div>
-                <div>
-                    <input class="easyui-textbox" label="email" labelAlign="center" name="email" data-options=""
+                    <input class="easyui-textbox" label="密码" labelAlign="center" name="password"
+                           data-options="required:true"
                            style="width: 100%"></div>
             </div>
             <div class="table-row">
                 <div>
-                    <select id="cc" class="easyui-combobox" label="状态" labelAlign="center" editable="false"
-                            name="status"
+                    <input class="easyui-textbox" label="姓名" labelAlign="center" name="name"
+                           data-options="required:true"
+                           style="width: 100%"></div>
+                <div>
+                    <input class="easyui-textbox" label="email" labelAlign="center" name="email"
+                           data-options="required:true,validType:'email'"
+                           style="width: 100%"></div>
+            </div>
+            <div class="table-row">
+                <div>
+                    <select id="cc" class="easyui-combobox" label="状态" labelAlign="center" name="status"
+                            editable="false" data-options="required:true"
                             style="width: 100%">
                         <option value="0">有效</option>
                         <option value="1">无效</option>

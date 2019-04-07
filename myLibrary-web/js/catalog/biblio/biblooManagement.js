@@ -27,7 +27,11 @@ $(document).ready(function () {
     $('#dg-biblio').datagrid({
         url: api.url.listBiblio,
         onBeforeLoad: function (param) {
-            param.titleOrIsbn = $('#titleOrIsbn').val();
+            var p = $('#titleOrIsbn').val();
+            if (!util.string.isEmpty(p)) {
+                param.titleOrIsbn = p;
+            }
+
             return true;
         },
         onClickRow: function (index, row) {
@@ -62,6 +66,12 @@ $(document).ready(function () {
                 console.log(jsonStr);
 
                 ajax.post(api.url.saveBiblio, jsonStr, function (data) {
+                    var b = $('#ff-biblio').form('enableValidation').form('validate');
+                    if (!b)
+                        return;
+
+                    $('#ff-biblio').form('disableValidation');
+
                     if (data.code != api.code.OK)
                         return;
 
@@ -74,11 +84,13 @@ $(document).ready(function () {
             text: '取消',
             handler: function () {
                 $('#ff-biblio').form('reset');
+                $('#ff-biblio').form('disableValidation');
                 $('#dd-biblio').dialog({closed: true});
             }
         }],
         onClose: function () {
             $('#ff-biblio').form('reset');
+            $('#ff-biblio').form('disableValidation');
             $('#dd-biblio').dialog({closed: true});
         }
     });
@@ -117,7 +129,11 @@ $(document).ready(function () {
     $('#dg-collection').datagrid({
         url: api.url.listCollection,
         onBeforeLoad: function (param) {
-            param.biblioId = $('#biblioId').val();
+            var p = $('#biblioId').val()
+            if (util.string.isEmpty(p))
+                return false;
+
+            param.biblioId = p;
             return true;
         },
         loadFilter: dataGirdApiAdapter,
@@ -141,6 +157,12 @@ $(document).ready(function () {
         buttons: [{
             text: '保存',
             handler: function () {
+                var b = $('#ff-collection').form('enableValidation').form('validate');
+                if (!b)
+                    return;
+
+                $('#ff-collection').form('disableValidation');
+
                 var jsonStr = util.form.serializeJosnString($('#ff-collection'));
                 console.log(jsonStr);
 
@@ -157,17 +179,24 @@ $(document).ready(function () {
             text: '取消',
             handler: function () {
                 $('#ff-collection').form('reset');
+                $('#ff-collection').form('disableValidation');
                 $('#dd-collection').dialog({closed: true});
             }
         }],
         onClose: function () {
             $('#ff-collection').form('reset');
+            $('#ff-collection').form('disableValidation');
             $('#dd-collection').dialog({closed: true});
         }
     });
 
     $('#add-collection-btn').bind('click', function () {
+        var biblioId = $('#biblioId').val()
+        if (util.string.isEmpty(biblioId))
+            return;
+
         ajax.get(api.url.locationOption, null, function (data) {
+
             if (data.code != api.code.OK)
                 return;
 
@@ -177,8 +206,8 @@ $(document).ready(function () {
                 data: data.data
             })
         }, 'json', false);
-        $("#callNumber").textbox('setValue',_row.categoryNumber + "/");
-        $("#bibId").textbox('setValue',_row.id);
+        $("#callNumber").textbox('setValue', _row.categoryNumber + "/");
+        $("#bibId").textbox('setValue', _row.id);
         $('#dd-collection').dialog({closed: false});
     });
 });

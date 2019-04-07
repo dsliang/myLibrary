@@ -2,6 +2,7 @@ package cn.dsliang.library.entity;
 
 
 import cn.dsliang.library.enums.RuleStatusEnum;
+import cn.dsliang.library.util.EnumUtil;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import javax.persistence.*;
@@ -114,5 +115,9 @@ public class Rule {
 
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
+    }
+
+    public RuleStatusEnum getStatusEnum() {
+        return EnumUtil.getByCode(status, RuleStatusEnum.class);
     }
 }

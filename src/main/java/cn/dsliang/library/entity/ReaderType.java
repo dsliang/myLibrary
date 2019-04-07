@@ -1,6 +1,7 @@
 package cn.dsliang.library.entity;
 
 import cn.dsliang.library.enums.ReaderTypeStatusEnum;
+import cn.dsliang.library.util.EnumUtil;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import javax.persistence.*;
@@ -91,5 +92,9 @@ public class ReaderType {
 
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
+    }
+
+    public ReaderTypeStatusEnum getStatusEnum() {
+        return EnumUtil.getByCode(status, ReaderTypeStatusEnum.class);
     }
 }

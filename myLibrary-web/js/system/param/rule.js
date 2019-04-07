@@ -36,7 +36,7 @@ $(document).ready(function () {
             {field: 'borrowDays', title: '借阅天数', width: 100},
             {field: 'renewalTimes', title: '续借次数', width: 100},
             {field: 'renewalDays', title: '续借天数', width: 100},
-            {field: 'status', title: '状态', width: 100},
+            {field: 'statusName', title: '状态', width: 100},
             {field: 'id', title: '操作', align: 'center', width: 100, formatter: rowOperation}
         ]]
     });
@@ -52,6 +52,12 @@ $(document).ready(function () {
         buttons: [{
             text: '保存',
             handler: function () {
+                var b = $('#ff').form('enableValidation').form('validate');
+                if (!b)
+                    return;
+
+                $('#ff').form('disableValidation');
+
                 var jsonStr = util.form.serializeJosnString($('#ff'));
                 console.log(jsonStr);
 
@@ -68,11 +74,13 @@ $(document).ready(function () {
             text: '取消',
             handler: function () {
                 $('#ff').form('reset');
+                $('#ff').form('disableValidation');
                 $('#dd').dialog({closed: true});
             }
         }],
         onClose: function () {
             $('#ff').form('reset');
+            $('#ff').form('disableValidation');
             $('#dd').dialog({closed: true});
         }
     });

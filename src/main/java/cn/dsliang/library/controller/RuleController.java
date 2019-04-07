@@ -6,6 +6,7 @@ import cn.dsliang.library.entity.Rule;
 import cn.dsliang.library.enums.ResultEnum;
 import cn.dsliang.library.exception.BusinessException;
 import cn.dsliang.library.from.OptionForm;
+import cn.dsliang.library.from.RuleForm;
 import cn.dsliang.library.service.RuleService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,30 +26,33 @@ public class RuleController {
 
     @GetMapping
     @ResponseBody
-    ApiResponse<Rule> findRule(@RequestParam(name = "ruleId", required = true) Integer id) {
+    ApiResponse<RuleForm> findRule(@RequestParam(name = "ruleId", required = true) Integer id) {
+        RuleForm form = new RuleForm();
         Rule rule = ruleService.findById(id);
         if (rule == null)
             throw new BusinessException(ResultEnum.RULE_NOT_EXIST);
 
-        return ApiResponse.success(rule);
+        BeanUtils.copyProperties(rule, form);
+        form.setStatusName(rule.getStatusEnum().getMessage());
+
+        return ApiResponse.success(form);
     }
 
     @PostMapping("/save")
     @ResponseBody
-    ApiResponse save(@RequestBody Rule rule) {
+    ApiResponse save(@RequestBody RuleForm form) {
         Rule rawRule = new Rule();
-        if (rule.getId() != null) {
-            rawRule = ruleService.findById(rule.getId());
+        if (form.getId() != null) {
+            rawRule = ruleService.findById(form.getId());
             if (rawRule == null)
                 throw new BusinessException(ResultEnum.RULE_NOT_EXIST);
-        }else {
-            Rule r = ruleService.findByName(rule.getName());
+        } else {
+            Rule r = ruleService.findByName(form.getName());
             if (r != null)
                 throw new BusinessException(ResultEnum.RULE_IS_EXIST);
         }
 
-        BeanUtils.copyProperties(rule, rawRule);
-
+        BeanUtils.copyProperties(form, rawRule);
 
         ruleService.save(rawRule);
 
@@ -57,13 +61,20 @@ public class RuleController {
 
     @PostMapping("/list")
     @ResponseBody
-    ApiResponse<EasyuiPageResult<Rule>> list(@RequestParam(required = false) String name,
-                                             @RequestParam(required = false) Integer status,
-                                             @RequestParam(defaultValue = "1") Integer page,
-                                             @RequestParam(name = "rows", defaultValue = "10") Integer size) {
+    ApiResponse<EasyuiPageResult<RuleForm>> list(@RequestParam(required = false) String name,
+                                                 @RequestParam(required = false) Integer status,
+                                                 @RequestParam(defaultValue = "1") Integer page,
+                                                 @RequestParam(name = "rows", defaultValue = "10") Integer size) {
+        List<RuleForm> forms = new ArrayList<>();
         Page<Rule> rulePage = ruleService.list(name, status, page - 1, size);
-        return ApiResponse.success(
-                new EasyuiPageResult<Rule>(rulePage.getTotalElements(), rulePage.getContent()));
+        for (Rule rule : rulePage.getContent()) {
+            RuleForm form = new RuleForm();
+            BeanUtils.copyProperties(rule, form);
+            form.setStatusName(rule.getStatusEnum().getMessage());
+
+            forms.add(form);
+        }
+        return ApiResponse.success(new EasyuiPageResult<RuleForm>(rulePage.getTotalElements(), forms));
     }
 
     @GetMapping("/delete")

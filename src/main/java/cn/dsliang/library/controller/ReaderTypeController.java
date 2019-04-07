@@ -53,7 +53,7 @@ public class ReaderTypeController {
             readerType = readerTypeService.findById(readerTypeForm.getReaderTypeId());
             if (readerType == null)
                 throw new BusinessException(ResultEnum.READER_TYPE_NOT_EXIST);
-        }else {
+        } else {
             ReaderType r = readerTypeService.findByName(readerType.getName());
             if (r != null)
                 throw new BusinessException(ResultEnum.READER_TYPE_IS_EXIST);
@@ -79,10 +79,10 @@ public class ReaderTypeController {
         List<ReaderTypeForm> typeForms = new ArrayList<>();
         Page<ReaderType> readerTypePage = readerTypeService.list(readerTypeName, status, page - 1, size);
         for (ReaderType type : readerTypePage.getContent()) {
-            ReaderTypeForm typeForm = new ReaderTypeForm();
-            copyProperties(type, typeForm);
+            ReaderTypeForm form = new ReaderTypeForm();
+            copyProperties(type, form);
 
-            typeForms.add(typeForm);
+            typeForms.add(form);
         }
 
         return ApiResponse.success(
@@ -119,5 +119,6 @@ public class ReaderTypeController {
         typeForm.setReaderTypeName(type.getName());
         typeForm.setRuleId(type.getRule().getId());
         typeForm.setRuleName(type.getRule().getName());
+        typeForm.setStatusName(type.getStatusEnum().getMessage());
     }
 }

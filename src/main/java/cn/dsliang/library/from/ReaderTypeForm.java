@@ -11,6 +11,8 @@ public class ReaderTypeForm {
 
     private Integer status;
 
+    private String statusName;
+
     private String comment;
 
     public Integer getReaderTypeId() {
@@ -51,6 +53,14 @@ public class ReaderTypeForm {
 
     public void setStatus(Integer status) {
         this.status = status;
+    }
+
+    public String getStatusName() {
+        return statusName;
+    }
+
+    public void setStatusName(String statusName) {
+        this.statusName = statusName;
     }
 
     public String getComment() {

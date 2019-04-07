@@ -57,7 +57,7 @@
                 <div class="list">
                     <div style="display: none">
                         <div>
-                            <input type="text" id="biblioId" data-options="" value="-1">
+                            <input type="text" id="biblioId" data-options="">
                         </div>
                     </div>
                     <table id="dg-collection" class="easyui-datagrid" toolbar="#tb"
@@ -74,7 +74,7 @@
 </div>
 
 <div id="dd-biblio" class="easyui-dialog edit-dialog">
-    <form id="ff-biblio">
+    <form id="ff-biblio" class="easyui-form" data-options="novalidate:true">
         <div class="table">
             <div class="table-row" style="display: none">
                 <div>
@@ -83,39 +83,48 @@
             </div>
             <div class="table-row">
                 <div>
-                    <input class="easyui-textbox" label="ISBN" labelAlign="center" name="isbn" data-options=""
+                    <input class="easyui-textbox" label="ISBN" labelAlign="center" name="isbn"
+                           data-options="required:true"
                            style="width: 100%"></div>
                 <div>
-                    <input class="easyui-textbox" label="题名" labelAlign="center" name="title" data-options=""
-                           style="width: 100%"></div>
-            </div>
-            <div class="table-row">
-                <div>
-                    <input class="easyui-textbox" label="著者" labelAlign="center" name="author" data-options=""
-                           style="width: 100%"></div>
-                <div>
-                    <input class="easyui-textbox" label="出版社" labelAlign="center" name="press" data-options=""
+                    <input class="easyui-textbox" label="题名" labelAlign="center" name="title"
+                           data-options="required:true"
                            style="width: 100%"></div>
             </div>
             <div class="table-row">
                 <div>
-                    <input class="easyui-textbox" label="分类号" labelAlign="center" name="categoryNumber" data-options=""
+                    <input class="easyui-textbox" label="著者" labelAlign="center" name="author"
+                           data-options="required:true"
                            style="width: 100%"></div>
                 <div>
-                    <input class="easyui-textbox" label="语种" labelAlign="center" name="language" data-options=""
-                           style="width: 100%"></div>
-            </div>
-            <div class="table-row">
-                <div>
-                    <input class="easyui-textbox" label="价格" labelAlign="center" name="price" data-options=""
-                           style="width: 100%"></div>
-                <div>
-                    <input class="easyui-textbox" label="内容介绍" labelAlign="center" name="introduction" data-options=""
+                    <input class="easyui-textbox" label="出版社" labelAlign="center" name="press"
+                           data-options="required:true"
                            style="width: 100%"></div>
             </div>
             <div class="table-row">
                 <div>
-                    <input class="easyui-textbox" label="页数" labelAlign="center" name="page" data-options=""
+                    <input class="easyui-textbox" label="分类号" labelAlign="center" name="categoryNumber"
+                           data-options="required:true"
+                           style="width: 100%"></div>
+                <div>
+                    <input class="easyui-textbox" label="语种" labelAlign="center" name="language"
+                           data-options="required:true"
+                           style="width: 100%"></div>
+            </div>
+            <div class="table-row">
+                <div>
+                    <input class="easyui-numberbox" label="价格" labelAlign="center" name="price"
+                           data-options="precision:2,groupSeparator:',', required:true"
+                           style="width: 100%"></div>
+                <div>
+                    <input class="easyui-textbox" label="内容介绍" labelAlign="center" name="introduction"
+                           data-options="required:true"
+                           style="width: 100%"></div>
+            </div>
+            <div class="table-row">
+                <div>
+                    <input class="easyui-numberspinner" label="页数" labelAlign="center" name="page"
+                           data-options="required:true"
                            style="width: 100%"></div>
             </div>
         </div>
@@ -123,7 +132,7 @@
 </div>
 
 <div id="dd-collection" class="easyui-dialog edit-dialog">
-    <form id="ff-collection">
+    <form id="ff-collection" class="easyui-form" data-options="novalidate:true">
         <div class="table">
             <div class="table-row" style="display: none">
                 <div>
@@ -135,19 +144,21 @@
             </div>
             <div class="table-row">
                 <div>
-                    <input class="easyui-textbox" label="条形码" labelAlign="center" name="barcode" data-options=""
+                    <input class="easyui-textbox" label="条形码" labelAlign="center" name="barcode" data-options="required:true"
                            style="width: 100%"></div>
                 <div>
-                    <input id="callNumber" class="easyui-textbox" label="索书号" labelAlign="center" name="callNumber" data-options=""
+                    <input id="callNumber" class="easyui-textbox" label="索书号" labelAlign="center" name="callNumber"
+                           data-options="required:true"
                            style="width: 100%"></div>
             </div>
             <div class="table-row">
                 <div>
-                    <input id="cc" class="easyui-combobox" label="馆藏地址" labelAlign="center" name="locationId" data-options=""
+                    <input id="cc" class="easyui-combobox" label="馆藏地址" labelAlign="center" name="locationId"
+                           data-options="required:true"
                            style="width: 100%"></div>
                 <div>
                     <select id="cc" class="easyui-combobox" label="状态" labelAlign="center" editable="false"
-                            name="status"
+                            name="status" data-options="required:true"
                             style="width:100%;">
                         <option value="0">在馆</option>
                         <option value="1">借出</option>

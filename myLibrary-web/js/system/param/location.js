@@ -47,6 +47,12 @@ $(document).ready(function () {
         buttons: [{
             text: '保存',
             handler: function () {
+                var b = $('#ff').form('enableValidation').form('validate');
+                if (!b)
+                    return;
+
+                $('#ff').form('disableValidation');
+
                 var jsonStr = util.form.serializeJosnString($('#ff'));
                 console.log(jsonStr);
 
@@ -63,11 +69,13 @@ $(document).ready(function () {
             text: '取消',
             handler: function () {
                 $('#ff').form('reset');
+                $('#ff').form('disableValidation');
                 $('#dd').dialog({closed: true});
             }
         }],
         onClose: function () {
             $('#ff').form('reset');
+            $('#ff').form('disableValidation');
             $('#dd').dialog({closed: true});
         }
     });

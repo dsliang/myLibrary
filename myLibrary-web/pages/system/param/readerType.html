@@ -66,7 +66,7 @@
 </div>
 
 <div id="dd" class="easyui-dialog edit-dialog">
-    <form id="ff">
+    <form id="ff" class="easyui-form" data-options="novalidate:true">
         <div class="table">
             <div class="table-row" style="display: none">
                 <div>
@@ -75,19 +75,20 @@
             </div>
             <div class="table-row">
                 <div>
-                    <input class="easyui-textbox" label="类型名称" labelAlign="center" name="readerTypeName" data-options=""
+                    <input class="easyui-textbox" label="类型名称" labelAlign="center" name="readerTypeName"
+                           data-options="required:true"
                            style="width:100%;">
                 </div>
                 <div>
                     <input id="rc" class="easyui-combobox" label="借阅规则" labelAlign="center" name="ruleId"
-                           data-options=""
+                           data-options="required:true"
                            style="width:100%;"></input>
                 </div>
             </div>
             <div class="table-row">
                 <div>
                     <select id="cc" class="easyui-combobox" label="状态" labelAlign="center" editable="false"
-                            name="status"
+                            name="status" data-options="required:true"
                             style="width:100%;">
                         <option value="0">有效</option>
                         <option value="1">无效</option>

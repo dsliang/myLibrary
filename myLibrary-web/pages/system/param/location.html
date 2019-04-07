@@ -58,21 +58,22 @@
     </div>
 </div>
 <div id="dd" class="easyui-dialog edit-dialog">
-    <form id="ff">
-        <div class="table">
-            <div class="table-row" style="display: none">
-                <div>
-                    <input class="easyui-textbox" name="id" data-options="">
-                </div>
-            </div>
+    <form id="ff" class="easyui-form" data-options="novalidate:true">
+        <div class="table" >
+
             <div class="table-row">
                 <div>
-                    <input class="easyui-textbox" label="藏址名称" labelAlign="center" name="name" data-options=""
+                    <input class="easyui-textbox" label="藏址名称" labelAlign="center" name="name" data-options="required:true"
                            style="width: 100%">
                 </div>
                 <div>
                     <input class="easyui-textbox" label="备注" labelAlign="center" name="comment" data-options=""
                            style="width: 100%">
+                </div>
+            </div>
+            <div class="table-row" style="display: none">
+                <div>
+                    <input class="easyui-textbox" name="id" data-options="">
                 </div>
             </div>
         </div>

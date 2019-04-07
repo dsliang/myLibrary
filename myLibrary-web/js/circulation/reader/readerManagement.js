@@ -66,6 +66,12 @@ $(document).ready(function () {
                 console.log(jsonStr);
 
                 ajax.post(api.url.saveReader, jsonStr, function (data) {
+                    var b = $('#ff').form('enableValidation').form('validate');
+                    if (!b)
+                        return;
+
+                    $('#ff').form('disableValidation');
+
                     if (data.code != api.code.OK)
                         return;
 
@@ -78,11 +84,13 @@ $(document).ready(function () {
             text: '取消',
             handler: function () {
                 $('#ff').form('reset');
+                $('#ff').form('disableValidation');
                 $('#dd').dialog({closed: true});
             }
         }],
         onClose: function () {
             $('#ff').form('reset');
+            $('#ff').form('disableValidation');
             $('#dd').dialog({closed: true});
         }
     });

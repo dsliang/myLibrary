@@ -42,7 +42,7 @@ $(document).ready(function () {
         columns: [[
             {field: 'readerTypeName', title: '类型名称', width: 100},
             {field: 'ruleName', title: '借阅规则', width: 100},
-            {field: 'status', title: '状态', width: 100},
+            {field: 'statusName', title: '状态', width: 100},
             {field: 'comment', title: '备注', width: 100},
             {field: 'readerTypeId', title: '操作', align: 'center', width: 100, formatter: rowOperation}
         ]]
@@ -59,6 +59,12 @@ $(document).ready(function () {
         buttons: [{
             text: '保存',
             handler: function () {
+                var b = $('#ff').form('enableValidation').form('validate');
+                if (!b)
+                    return;
+
+                $('#ff').form('disableValidation');
+
                 var jsonStr = util.form.serializeJosnString($('#ff'));
                 console.log(jsonStr);
 
@@ -75,11 +81,13 @@ $(document).ready(function () {
             text: '取消',
             handler: function () {
                 $('#ff').form('reset');
+                $('#ff').form('disableValidation');
                 $('#dd').dialog({closed: true});
             }
         }],
         onClose: function () {
             $('#ff').form('reset');
+            $('#ff').form('disableValidation');
             $('#dd').dialog({closed: true});
         }
     });

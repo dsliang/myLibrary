@@ -69,7 +69,7 @@
 </div>
 
 <div id="dd" class="easyui-dialog edit-dialog">
-    <form id="ff">
+    <form id="ff" class="easyui-form" data-options="novalidate:true">
         <div class="table">
             <div class="table-row" style="display: none">
                 <div>
@@ -78,16 +78,18 @@
             </div>
             <div class="table-row">
                 <div>
-                    <input class="easyui-textbox" label="读者证" labelAlign="center" name="readerCard" data-options=""
+                    <input class="easyui-textbox" label="读者证" labelAlign="center" name="readerCard"
+                           data-options="required:true"
                            style="width: 100%"></div>
                 <div>
-                    <input class="easyui-textbox" label="姓名" labelAlign="center" name="readerName" data-options=""
+                    <input class="easyui-textbox" label="姓名" labelAlign="center" name="readerName"
+                           data-options="required:true"
                            style="width: 100%"></div>
             </div>
             <div class="table-row">
                 <div>
-                    <select class="easyui-combobox" label="性别" labelAlign="center" editable="false"
-                            name="gender"
+                    <select class="easyui-combobox" label="性别" labelAlign="center" editable="false" name="gender"
+                            data-options="required:true"
                             style="width: 100%">
                         <option value="0">男</option>
                         <option value="1">女</option>
@@ -95,14 +97,14 @@
                 </div>
                 <div>
                     <input id="rt" class="easyui-combobox" label="读者类型" labelAlign="center" name="readerTypeId"
-                           data-options=""
+                           data-options="required:true"
                            style="width: 100%">
                 </div>
             </div>
             <div class="table-row">
                 <div>
                     <select class="easyui-combobox" label="状态" labelAlign="center" editable="false"
-                            name="status"
+                            name="status" data-options="required:true"
                             style="width: 100%">
                         <option value="0">有效</option>
                         <option value="1">无效</option>

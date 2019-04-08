@@ -3,6 +3,7 @@ package cn.dsliang.library.controller;
 import cn.dsliang.library.common.ApiResponse;
 import cn.dsliang.library.common.EasyuiPageResult;
 import cn.dsliang.library.entity.Biblio;
+import cn.dsliang.library.entity.Collection;
 import cn.dsliang.library.enums.ResultEnum;
 import cn.dsliang.library.exception.BusinessException;
 import cn.dsliang.library.from.BiblioForm;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/api/catalog/biblio")
@@ -32,6 +34,11 @@ public class BiblioController {
             throw new BusinessException(ResultEnum.BIBLIO_NOT_EXIST);
 
         BeanUtils.copyProperties(biblio, form);
+        List<Integer> list = new ArrayList<>();
+        for (Collection collection : biblio.getCollections()) {
+            list.add(collection.getSerialNumber());
+        }
+        form.setSerialNumbers(list.stream().distinct().collect(Collectors.toList()));
 
         return ApiResponse.success(form);
     }
@@ -64,6 +71,11 @@ public class BiblioController {
         for (Biblio biblio : biblioPage.getContent()) {
             BiblioForm form = new BiblioForm();
             BeanUtils.copyProperties(biblio, form);
+            List<Integer> list = new ArrayList<>();
+            for (Collection collection : biblio.getCollections()) {
+                list.add(collection.getSerialNumber());
+            }
+            form.setSerialNumbers(list.stream().distinct().collect(Collectors.toList()));
 
             forms.add(form);
         }

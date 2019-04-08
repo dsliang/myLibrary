@@ -206,7 +206,12 @@ $(document).ready(function () {
                 data: data.data
             })
         }, 'json', false);
-        $("#callNumber").textbox('setValue', _row.categoryNumber + "/");
+        var serialNumber = 0;
+        for (var i = 0; i < _row.serialNumbers.length; i++) {
+            serialNumber = Math.max(serialNumber, _row.serialNumbers[i]);
+        }
+        serialNumber = serialNumber > 0 ? serialNumber : "";
+        $("#callNumber").textbox('setValue', _row.categoryNumber + "/" + serialNumber);
         $("#bibId").textbox('setValue', _row.id);
         $('#dd-collection').dialog({closed: false});
     });

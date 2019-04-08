@@ -1,6 +1,7 @@
 package cn.dsliang.library.from;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 public class BiblioForm {
     private Integer id;
@@ -14,6 +15,8 @@ public class BiblioForm {
     private String press;
 
     private String categoryNumber;
+
+    private List<Integer> serialNumbers;
 
     private String language;
 
@@ -69,6 +72,14 @@ public class BiblioForm {
 
     public void setCategoryNumber(String categoryNumber) {
         this.categoryNumber = categoryNumber;
+    }
+
+    public List<Integer> getSerialNumbers() {
+        return serialNumbers;
+    }
+
+    public void setSerialNumbers(List<Integer> serialNumbers) {
+        this.serialNumbers = serialNumbers;
     }
 
     public String getLanguage() {

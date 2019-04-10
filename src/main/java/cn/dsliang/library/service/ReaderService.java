@@ -13,4 +13,6 @@ public interface ReaderService {
     Page<Reader> list(String readerName, String readerCard, Integer status, Integer page, Integer size);
 
     void deleteById(Integer id);
+
+    Integer countByReaderTypeId(Integer id);
 }

@@ -10,6 +10,7 @@ import cn.dsliang.library.exception.BusinessException;
 import cn.dsliang.library.from.ReaderForm;
 import cn.dsliang.library.from.ReaderInfoForm;
 import cn.dsliang.library.service.BorrowService;
+import cn.dsliang.library.service.CirculatingService;
 import cn.dsliang.library.service.ReaderService;
 import cn.dsliang.library.service.ReaderTypeService;
 import cn.dsliang.library.util.DateUtil;
@@ -34,6 +35,9 @@ public class ReaderController {
 
     @Autowired
     private BorrowService borrowService;
+
+    @Autowired
+    CirculatingService circulatingService;
 
     private Integer calculateExtendedNumber(List<Circulating> circulatings) {
         Integer num = 0;
@@ -94,7 +98,7 @@ public class ReaderController {
             reader = readerService.findById(readerForm.getReaderId());
             if (reader == null)
                 throw new BusinessException(ResultEnum.READER_NOT_EXIST);
-        }else {
+        } else {
             Reader r = readerService.findByCard(reader.getCard());
             if (r != null)
                 throw new BusinessException(ResultEnum.CARD_IS_EXIST);
@@ -135,6 +139,10 @@ public class ReaderController {
     @GetMapping("/delete")
     @ResponseBody
     ApiResponse delete(@RequestParam(name = "readerId", required = true) Integer id) {
+        Integer count = circulatingService.countByReaderId(id);
+        if (count > 0)
+            throw new BusinessException(ResultEnum.READER_IN_USE);
+
         readerService.deleteById(id);
 
         return ApiResponse.success();

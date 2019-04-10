@@ -7,6 +7,7 @@ import cn.dsliang.library.enums.ResultEnum;
 import cn.dsliang.library.exception.BusinessException;
 import cn.dsliang.library.from.OptionForm;
 import cn.dsliang.library.from.RuleForm;
+import cn.dsliang.library.service.ReaderTypeService;
 import cn.dsliang.library.service.RuleService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,9 @@ public class RuleController {
 
     @Autowired
     private RuleService ruleService;
+
+    @Autowired
+    private ReaderTypeService readerTypeService;
 
     @GetMapping
     @ResponseBody
@@ -80,6 +84,10 @@ public class RuleController {
     @GetMapping("/delete")
     @ResponseBody
     ApiResponse delete(@RequestParam(name = "ruleId", required = true) Integer id) {
+        Integer count = readerTypeService.countByRuleId(id);
+        if (count > 0)
+            throw new BusinessException(ResultEnum.RULE_IN_USE);
+
         ruleService.deleteById(id);
 
         return ApiResponse.success();

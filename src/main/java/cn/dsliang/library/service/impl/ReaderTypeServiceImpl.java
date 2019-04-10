@@ -54,4 +54,9 @@ public class ReaderTypeServiceImpl implements ReaderTypeService {
     public List<ReaderType> findAll() {
         return readerTypeRepository.findAll();
     }
+
+    @Override
+    public Integer countByRuleId(Integer id) {
+        return readerTypeRepository.countByRuleId(id);
+    }
 }

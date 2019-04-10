@@ -8,6 +8,7 @@ import cn.dsliang.library.enums.ResultEnum;
 import cn.dsliang.library.exception.BusinessException;
 import cn.dsliang.library.from.OptionForm;
 import cn.dsliang.library.from.ReaderTypeForm;
+import cn.dsliang.library.service.ReaderService;
 import cn.dsliang.library.service.ReaderTypeService;
 import cn.dsliang.library.service.RuleService;
 import org.springframework.beans.BeanUtils;
@@ -28,6 +29,9 @@ public class ReaderTypeController {
 
     @Autowired
     private RuleService ruleService;
+
+    @Autowired
+    private ReaderService readerService;
 
     @GetMapping
     @ResponseBody
@@ -92,6 +96,10 @@ public class ReaderTypeController {
     @GetMapping("/delete")
     @ResponseBody
     ApiResponse delete(@RequestParam(name = "readerTypeId", required = true) Integer id) {
+        Integer count = readerService.countByReaderTypeId(id);
+        if (count > 0)
+            throw new BusinessException(ResultEnum.READER_TYPE_IN_USE);
+
         readerTypeService.deleteById(id);
 
         return ApiResponse.success();

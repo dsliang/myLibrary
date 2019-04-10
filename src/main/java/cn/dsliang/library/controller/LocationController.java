@@ -6,6 +6,7 @@ import cn.dsliang.library.entity.Location;
 import cn.dsliang.library.enums.ResultEnum;
 import cn.dsliang.library.exception.BusinessException;
 import cn.dsliang.library.from.OptionForm;
+import cn.dsliang.library.service.CollectionService;
 import cn.dsliang.library.service.LocationService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,9 @@ public class LocationController {
 
     @Autowired
     private LocationService locationService;
+
+    @Autowired
+    private CollectionService collectionService;
 
     @GetMapping
     @ResponseBody
@@ -69,6 +73,10 @@ public class LocationController {
     @GetMapping("/delete")
     @ResponseBody
     ApiResponse delete(@RequestParam(name = "locationId", required = true) Integer id) {
+        Integer count = collectionService.countByLocationId(id);
+        if (count > 0)
+            throw new BusinessException(ResultEnum.LOCATION_IN_USE);
+
         locationService.deleteById(id);
         return ApiResponse.success();
     }

@@ -14,4 +14,8 @@ public interface CollectionRepository extends JpaRepository<Collection, Integer>
     List<Collection> findByCategoryNumber(String categoryNumber);
 
     Page<Collection> findByBiblioId(Integer biblioId, Pageable pageable);
+
+    Integer countByLocationId(Integer id);
+
+    Integer countByBiblioId(Integer id);
 }

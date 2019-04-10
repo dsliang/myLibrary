@@ -17,4 +17,6 @@ public interface ReaderTypeService {
     void deleteById(Integer id);
 
     List<ReaderType> findAll();
+
+    Integer countByRuleId(Integer id);
 }

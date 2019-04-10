@@ -12,5 +12,9 @@ public interface CollectionService {
 
     Page<Collection> list(Integer biblioId, Integer page, Integer size);
 
+    Integer countByLocationId(Integer id);
+
+    Integer countByBiblioId(Integer id);
+
     void deleteById(Integer id);
 }

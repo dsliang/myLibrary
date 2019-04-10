@@ -13,4 +13,6 @@ public interface CirculatingRepository extends JpaRepository<Circulating, Intege
     Page<Circulating> findByReaderId(Integer readerId, Pageable pageable);
 
     Circulating findByCollectionId(Integer collectionId);
+
+    Integer countByReaderId(Integer id);
 }

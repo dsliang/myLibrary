@@ -51,6 +51,16 @@ public class CollectionServiceImpl implements CollectionService {
     }
 
     @Override
+    public Integer countByLocationId(Integer id) {
+        return collectionRepository.countByLocationId(id);
+    }
+
+    @Override
+    public Integer countByBiblioId(Integer id) {
+        return collectionRepository.countByBiblioId(id);
+    }
+
+    @Override
     public void deleteById(Integer id) {
         collectionRepository.delete(id);
     }

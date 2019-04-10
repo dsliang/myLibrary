@@ -8,6 +8,7 @@ import cn.dsliang.library.enums.ResultEnum;
 import cn.dsliang.library.exception.BusinessException;
 import cn.dsliang.library.from.BiblioForm;
 import cn.dsliang.library.service.BiblioService;
+import cn.dsliang.library.service.CollectionService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -24,6 +25,9 @@ public class BiblioController {
 
     @Autowired
     private BiblioService biblioService;
+
+    @Autowired
+    private CollectionService collectionService;
 
     @GetMapping
     @ResponseBody
@@ -87,6 +91,10 @@ public class BiblioController {
     @GetMapping("/delete")
     @ResponseBody
     ApiResponse delete(@RequestParam(name = "biblioId", required = true) Integer id) {
+        Integer count = collectionService.countByBiblioId(id);
+        if (count > 0)
+            throw new BusinessException(ResultEnum.BIBLIO_IN_USE);
+
         biblioService.deleteById(id);
 
         return ApiResponse.success();

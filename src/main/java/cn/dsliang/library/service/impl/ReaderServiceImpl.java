@@ -51,4 +51,9 @@ public class ReaderServiceImpl implements ReaderService {
     public void deleteById(Integer id) {
         readerRepository.delete(id);
     }
+
+    @Override
+    public Integer countByReaderTypeId(Integer id) {
+        return readerRepository.countByReaderTypeId(id);
+    }
 }

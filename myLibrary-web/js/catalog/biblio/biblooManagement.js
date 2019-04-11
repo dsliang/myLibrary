@@ -3,11 +3,23 @@ var _row;
 $(document).ready(function () {
 
     editBiblio = function (id) {
-        ajax.get(api.url.biblio, {biblioId: id}, function (data) {
+        ajax.get(api.url.locationOption, null, function (data) {
+
             if (data.code != api.code.OK)
                 return;
-            $('#ff-biblio').form('load', data.data);
-            $('#dd-biblio').dialog({closed: false});
+
+            $('#cc').combobox({
+                valueField: 'id',
+                textField: 'text',
+                data: data.data
+            })
+
+            ajax.get(api.url.biblio, {biblioId: id}, function (data) {
+                if (data.code != api.code.OK)
+                    return;
+                $('#ff-biblio').form('load', data.data);
+                $('#dd-biblio').dialog({closed: false});
+            }, 'json', false);
         }, 'json', false);
     };
 

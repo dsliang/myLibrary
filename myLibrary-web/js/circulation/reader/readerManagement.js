@@ -62,16 +62,16 @@ $(document).ready(function () {
         buttons: [{
             text: '保存',
             handler: function () {
+                var b = $('#ff').form('enableValidation').form('validate');
+                if (!b)
+                    return;
+
+                $('#ff').form('disableValidation');
+
                 var jsonStr = util.form.serializeJosnString($('#ff'));
                 console.log(jsonStr);
 
                 ajax.post(api.url.saveReader, jsonStr, function (data) {
-                    var b = $('#ff').form('enableValidation').form('validate');
-                    if (!b)
-                        return;
-
-                    $('#ff').form('disableValidation');
-
                     if (data.code != api.code.OK)
                         return;
 

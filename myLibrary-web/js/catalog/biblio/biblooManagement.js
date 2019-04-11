@@ -62,16 +62,16 @@ $(document).ready(function () {
         buttons: [{
             text: '保存',
             handler: function () {
+                var b = $('#ff-biblio').form('enableValidation').form('validate');
+                if (!b)
+                    return;
+
+                $('#ff-biblio').form('disableValidation');
+
                 var jsonStr = util.form.serializeJosnString($('#ff-biblio'));
                 console.log(jsonStr);
 
                 ajax.post(api.url.saveBiblio, jsonStr, function (data) {
-                    var b = $('#ff-biblio').form('enableValidation').form('validate');
-                    if (!b)
-                        return;
-
-                    $('#ff-biblio').form('disableValidation');
-
                     if (data.code != api.code.OK)
                         return;
 

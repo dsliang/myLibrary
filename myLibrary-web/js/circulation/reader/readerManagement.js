@@ -42,11 +42,11 @@ $(document).ready(function () {
         },
         loadFilter: dataGirdApiAdapter,
         columns: [[
-            {field: 'readerCard', title: '读者证', width: 100},
-            {field: 'readerName', title: '姓名', width: 100},
-            {field: 'genderName', title: '性别', width: 100},
-            {field: 'readerTypeName', title: '读者类型', width: 100},
-            {field: 'statusName', title: '状态', width: 100},
+            {field: 'readerCard', title: '读者证', align: 'center', width: 100},
+            {field: 'readerName', title: '姓名', align: 'center', width: 100},
+            {field: 'genderName', title: '性别', align: 'center', width: 100},
+            {field: 'readerTypeName', title: '读者类型', align: 'center', width: 100},
+            {field: 'statusName', title: '状态', align: 'center', width: 100},
             {field: 'readerId', title: '操作', align: 'center', width: 100, formatter: rowOperation}
         ]]
     });

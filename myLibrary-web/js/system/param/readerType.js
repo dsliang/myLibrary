@@ -40,10 +40,10 @@ $(document).ready(function () {
         },
         loadFilter: dataGirdApiAdapter,
         columns: [[
-            {field: 'readerTypeName', title: '类型名称', width: 100},
-            {field: 'ruleName', title: '借阅规则', width: 100},
-            {field: 'statusName', title: '状态', width: 100},
-            {field: 'comment', title: '备注', width: 100},
+            {field: 'readerTypeName', title: '类型名称', align: 'center', width: 100},
+            {field: 'ruleName', title: '借阅规则', align: 'center', width: 100},
+            {field: 'statusName', title: '状态', align: 'center', width: 100},
+            {field: 'comment', title: '备注', align: 'center', width: 100},
             {field: 'readerTypeId', title: '操作', align: 'center', width: 100, formatter: rowOperation}
         ]]
     });

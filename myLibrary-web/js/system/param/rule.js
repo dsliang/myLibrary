@@ -31,12 +31,12 @@ $(document).ready(function () {
         },
         loadFilter: dataGirdApiAdapter,
         columns: [[
-            {field: 'name', title: '规则名称', width: 100},
-            {field: 'borrowNumber', title: '借阅册数', width: 100},
-            {field: 'borrowDays', title: '借阅天数', width: 100},
-            {field: 'renewalTimes', title: '续借次数', width: 100},
-            {field: 'renewalDays', title: '续借天数', width: 100},
-            {field: 'statusName', title: '状态', width: 100},
+            {field: 'name', title: '规则名称', align: 'center', width: 100},
+            {field: 'borrowNumber', title: '借阅册数', align: 'center', width: 100},
+            {field: 'borrowDays', title: '借阅天数', align: 'center', width: 100},
+            {field: 'renewalTimes', title: '续借次数', align: 'center', width: 100},
+            {field: 'renewalDays', title: '续借天数', align: 'center', width: 100},
+            {field: 'statusName', title: '状态', align: 'center', width: 100},
             {field: 'id', title: '操作', align: 'center', width: 100, formatter: rowOperation}
         ]]
     });

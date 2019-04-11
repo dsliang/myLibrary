@@ -41,12 +41,12 @@ $(document).ready(function () {
         },
         loadFilter: dataGirdApiAdapter,
         columns: [[
-            {field: 'isbn', title: 'ISBN', width: 100},
-            {field: 'title', title: '提名', width: 100},
-            {field: 'author', title: '著者', width: 100},
-            {field: 'categoryNumber', title: '分类号', width: 100},
-            {field: 'press', title: '出版社', width: 100},
-            {field: 'price', title: '价格', width: 100},
+            {field: 'isbn', title: 'ISBN', align: 'center', width: 100},
+            {field: 'title', title: '提名', align: 'center', width: 100},
+            {field: 'author', title: '著者', align: 'center', width: 100},
+            {field: 'categoryNumber', title: '分类号', align: 'center', width: 100},
+            {field: 'press', title: '出版社', align: 'center', width: 100},
+            {field: 'price', title: '价格', align: 'center', width: 100},
             {field: 'id', title: '操作', align: 'center', width: 100, formatter: biblioRowOperation}
         ]]
     });
@@ -138,10 +138,10 @@ $(document).ready(function () {
         },
         loadFilter: dataGirdApiAdapter,
         columns: [[
-            {field: 'barcode', title: '条形码', width: 100},
-            {field: 'callNumber', title: '索书号', width: 100},
-            {field: 'locationName', title: '馆藏地址', width: 100},
-            {field: 'statusName', title: '馆藏状态', width: 100},
+            {field: 'barcode', title: '条形码', align: 'center', width: 100},
+            {field: 'callNumber', title: '索书号', align: 'center', width: 100},
+            {field: 'locationName', title: '馆藏地址', align: 'center', width: 100},
+            {field: 'statusName', title: '馆藏状态', align: 'center', width: 100},
             {field: 'collectionId', title: '操作', align: 'center', width: 100, formatter: CollectionRowOperation}
         ]]
     });

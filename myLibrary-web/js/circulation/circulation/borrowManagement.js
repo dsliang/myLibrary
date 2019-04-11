@@ -35,11 +35,11 @@ $(document).ready(function () {
         },
         loadFilter: dataGirdApiAdapter,
         columns: [[
-            {field: 'title', title: '题名', width: 100},
-            {field: 'callNumber', title: '索书号', width: 100},
-            {field: 'locationName', title: '馆藏地点', width: 100},
-            {field: 'borrowDate', title: '借出日期', width: 100},
-            {field: 'returnDate', title: '应还日期', width: 100},
+            {field: 'title', title: '题名', align: 'center', width: 100},
+            {field: 'callNumber', title: '索书号', align: 'center', width: 100},
+            {field: 'locationName', title: '馆藏地点', align: 'center', width: 100},
+            {field: 'borrowDate', title: '借出日期', align: 'center', width: 100},
+            {field: 'returnDate', title: '应还日期', align: 'center', width: 100},
             {field: 'collectionId', title: '操作', align: 'center', width: 100, formatter: rowOperation}
         ]]
     });

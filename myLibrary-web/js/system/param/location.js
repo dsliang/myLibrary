@@ -30,8 +30,8 @@ $(document).ready(function () {
         },
         loadFilter: dataGirdApiAdapter,
         columns: [[
-            {field: 'name', title: '馆藏名称', width: 100},
-            {field: 'comment', title: '备注', width: 100},
+            {field: 'name', title: '馆藏名称', align: 'center', width: 100},
+            {field: 'comment', title: '备注', align: 'center', width: 100},
             {field: 'id', title: '操作', align: 'center', width: 100, formatter: rowOperation}
         ]]
     });

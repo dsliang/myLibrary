@@ -31,10 +31,10 @@ $(document).ready(function () {
         },
         loadFilter: dataGirdApiAdapter,
         columns: [[
-            {field: 'account', title: '账号', width: 100},
-            {field: 'name', title: '姓名', width: 100},
-            {field: 'email', title: 'email', width: 100},
-            {field: 'statusName', title: '状态', width: 100},
+            {field: 'account', title: '账号', align: 'center', width: 100},
+            {field: 'name', title: '姓名', align: 'center', width: 100},
+            {field: 'email', title: 'email', align: 'center', width: 100},
+            {field: 'statusName', title: '状态', align: 'center', width: 100},
             {field: 'id', title: '操作', align: 'center', width: 100, formatter: rowOperation}
         ]]
     });

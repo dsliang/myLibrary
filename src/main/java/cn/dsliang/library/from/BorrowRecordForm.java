@@ -1,13 +1,22 @@
 package cn.dsliang.library.from;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Date;
 
 public class BorrowRecordForm {
     private Integer collectionId;
+
     private String title;
+
     private String callNumber;
+
     private String locationName;
+
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date borrowDate;
+
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date returnDate;
 
     public Integer getCollectionId() {

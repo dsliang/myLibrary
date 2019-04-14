@@ -87,8 +87,8 @@ public class CollectionController {
             collection = collectionService.findById(collectionForm.getCollectionId());
             if (collection == null)
                 throw new BusinessException(ResultEnum.COLLECTION_NOT_EXIST);
-        }else {
-            Collection c = collectionService.findByBarcode(collection.getBarcode());
+        } else {
+            Collection c = collectionService.findByBarcode(collectionForm.getBarcode());
             if (c != null)
                 throw new BusinessException(ResultEnum.BARCODE_IS_EXIST);
 

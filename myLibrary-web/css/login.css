@@ -1,0 +1,63 @@
+body {
+    background-color: azure;
+    background-size: 280px 360px;
+    background-repeat: no-repeat;
+    background-position: 30% 50%;
+    position: relative;
+}
+
+.login-box {
+    width: 400px;
+    height: 400px;
+    background-color: #f2f2f2;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin: -250px 0 0 -200px;
+    padding: 15px;
+    box-sizing: border-box;
+}
+
+.login-box h3 {
+    text-align: center;
+}
+
+.login-box form {
+    margin-top: 50px;
+}
+
+.login-box form .form-item {
+    padding: 20px 0;
+    text-align: center;
+}
+
+form .form-item label {
+    display: inline-block;
+    width: 20%;
+    text-align: right;
+    padding-right: 20px;
+}
+
+form .form-item input {
+    width: 70%;
+    padding: 8px 0;
+    border-radius: 4px;
+    box-shadow: none;
+}
+
+form .form-item .login-btn {
+    display: inline-block;
+    width: 50%;
+    border-radius: 20px;
+    background-color: #fff;
+    padding: 8px 0;
+    text-align: center;
+    color: #333;
+    cursor: pointer;
+    border: 1px solid #ccc;
+}
+
+form .form-item .login-btn:active {
+    border-color: #ddd;
+    color: #666;
+}

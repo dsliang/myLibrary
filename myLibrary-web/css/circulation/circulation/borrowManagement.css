@@ -1,0 +1,8 @@
+.table .table-row div {
+    padding-left: 10%;
+    padding-right: 10%;
+}.table .table-head div {
+    padding-left: 10%;
+    padding-right: 10%;
+    padding-bottom: 50px;
+}

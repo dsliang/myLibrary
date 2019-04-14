@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <link rel="stylesheet" href="../../../plugins/jquery-easyui/themes/default/easyui.css">
+    <link rel="stylesheet" href="../../../plugins/jquery-easyui/themes/icon.css">
+    <link rel="stylesheet" href="../../../css/base.css">
+    <link rel="stylesheet" href="../../../css/circulation/circulation/borrowManagement.css">
+
+    <script src="../../../plugins/jquery-easyui/jquery.min.js"></script>
+    <script src="../../../plugins/jquery-easyui/jquery.easyui.min.js"></script>
+    <script src="../../../js/api.js"></script>
+    <script src="../../../js/common.js"></script>
+    <script src="../../../js/circulation/circulation/borrowManagement.js"></script>
+
+    <title>图书借阅</title>
+</head>
+<body>
+<div class="easyui-layout" data-options="fit:true">
+    <div data-options="region:'north',border:false">
+        <div class="tab-guide">
+            <span>你的位置:&nbsp&nbsp流通管理&nbsp>&nbsp借阅管理&nbsp>&nbsp图书借阅</span>
+        </div>
+    </div>
+    <div data-options="region:'center',border:false">
+        <div class="easyui-layout" data-options="fit:true">
+            <div data-options="region:'north',border:false">
+                <div class="table">
+                    <div class="table-row table-head">
+                        <div>
+                            <input id="card" class="easyui-textbox" label="读者证" labelAlign="center" name="card"
+                                   data-options=""
+                                   style="width: 100%"></div>
+                        <div>
+                            <input id="barcode" class="easyui-textbox" label="条形码" labelAlign="center"
+                                   name="barcode"
+                                   data-options=""
+                                   style="width: 100%"></div>
+                    </div>
+                </div>
+                <form id="ff">
+                    <div class="table">
+                        <div class="table-row" style="display: none">
+                            <div>
+                                <input id="readerId" class="easyui-textbox" name="readerId" data-options="">
+                            </div>
+                            <div>
+                                <input id="collectionId" class="easyui-textbox" name="collectionId" data-options="">
+                            </div>
+                        </div>
+                        <div class="table-row">
+                            <div>
+                                <input class="easyui-textbox" label="姓名" labelAlign="center" name="name"
+                                       data-options="readonly:true"
+                                       style="width: 100%"></div>
+                            <div>
+                                <input class="easyui-textbox" label="书名" labelAlign="center" name="title"
+                                       data-options="readonly:true"
+                                       style="width: 100%"></div>
+                        </div>
+                        <div class="table-row">
+                            <div>
+                                <input class="easyui-textbox" label="状态" labelAlign="center" name="statusName"
+                                       data-options="readonly:true"
+                                       style="width: 100%"></div>
+                            <div>
+                                <input class="easyui-textbox" label="著者" labelAlign="center" name="author"
+                                       data-options="readonly:true"
+                                       style="width: 100%">
+                            </div>
+                        </div>
+                        <div class="table-row">
+                            <div>
+                                <input class="easyui-textbox" label="可借册数" labelAlign="center" name="borrowNumber"
+                                       data-options="readonly:true"
+                                       style="width: 100%"></div>
+                            <div>
+                                <input class="easyui-textbox" label="索书号" labelAlign="center" name="callNumber"
+                                       data-options="readonly:true"
+                                       style="width: 100%">
+                            </div>
+                        </div>
+                        <div class="table-row">
+                            <div>
+                                <input class="easyui-textbox" label="状态" labelAlign="center" name="statusName"
+                                       data-options="readonly:true"
+                                       style="width: 100%"></div>
+                            <div>
+                                <input class="easyui-textbox" label="著者" labelAlign="center" name="author"
+                                       data-options="readonly:true"
+                                       style="width: 100%">
+                            </div>
+                        </div>
+                        <div class="table-row">
+                            <div>
+                                <input class="easyui-textbox" label="已借册数" labelAlign="center" name="borrowedNumber"
+                                       data-options="readonly:true"
+                                       style="width: 100%"></div>
+                            <div>
+                                <input class="easyui-textbox" label="价格" labelAlign="center" name="price"
+                                       data-options="readonly:true"
+                                       style="width: 100%">
+                            </div>
+                        </div>
+                        <div class="table-row">
+                            <div>
+                                <input class="easyui-textbox" label="超期册数" labelAlign="center" name="extendedNumber"
+                                       data-options="readonly:true"
+                                       style="width: 100%"></div>
+                            <div>
+                                <input class="easyui-textbox" label="出版社" labelAlign="center" name="press"
+                                       data-options="readonly:true"
+                                       style="width: 100%">
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div data-options="region:'center',border:false">
+                <div class="list">
+                    <table id="dg" class="easyui-datagrid"
+                           data-options="fitColumns:true,singleSelect:true,pagination:true,fit:true,rownumbers:true">
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+
+

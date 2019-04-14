@@ -178,6 +178,10 @@ var api = (function (env) {
 })(_env);
 ```
 5.重启nginx或nginx重新加载配置文件
-## 3.感谢
+## 3.链接
+    http://94.191.3.36/login.html
+    账号:admin
+    密码:123456
+## 4.感谢
 &emsp;&emsp;感谢给予帮助朋友!  
 &emsp;&emsp;啊志先生,良,青稞弟弟

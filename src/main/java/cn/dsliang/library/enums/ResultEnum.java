@@ -26,7 +26,8 @@ public enum ResultEnum {
     USER_STATUS_INVALID(26, "用户状态无效"),
     USER_PASSWORD_ERROR(27, "用户密码错误"),
     CALL_NUMBER_FORMAT_ERROR(28, "索书号格式错误"),
-    CIRCULATING_NOT_EXIST(29, "流通记录不存在");
+    CIRCULATING_NOT_EXIST(29, "流通记录不存在"),
+    BORROW_OVERDUE(29,"超期借阅");
 
     private Integer code;
 

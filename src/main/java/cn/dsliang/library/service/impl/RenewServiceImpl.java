@@ -34,6 +34,9 @@ public class RenewServiceImpl implements RenewService {
         if (circulating == null)
             throw new BusinessException(ResultEnum.CIRCULATING_NOT_EXIST);
 
+        if(DateUtil.compareDate(DateUtil.getCurrentDate(),circulating.getReturnDate()) != -1)
+            throw new BusinessException(ResultEnum.BORROW_OVERDUE);
+
         Rule rule = circulating.getReader().getReaderType().getRule();
 
         //1.检查续借次数
